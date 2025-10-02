@@ -1,0 +1,706 @@
+<?php
+/**
+ * Pengaturan WordPress Customizer untuk tema Mediman.
+ * File ini mendefinisikan semua panel, section, setting, dan control.
+ *
+ * @package Mediman
+ */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+/**
+ * Menambahkan semua pengaturan tema ke WordPress Customizer.
+ *
+ * @param WP_Customize_Manager $wp_customize Instance dari WP_Customize_Manager.
+ */
+function mediman_customize_register_all( $wp_customize ) {
+
+    // =========================================================================
+    // 1. PANEL UTAMA TEMA
+    // =========================================================================
+    $wp_customize->add_panel( 'mediman_theme_options_panel', [
+        'title'       => __( 'Pengaturan Tema Mediman', 'mediman' ),
+        'description' => __( 'Panel untuk mengatur semua opsi tema Mediman.', 'mediman' ),
+        'priority'    => 10,
+    ] );
+
+    // =========================================================================
+    // 2. SECTION: PENGATURAN HEADER
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_header_section', [
+        'title'    => __( 'Pengaturan Header', 'mediman' ),
+        'panel'    => 'mediman_theme_options_panel',
+        'priority' => 5,
+    ] );
+
+    $wp_customize->add_setting( 'show_header_search', [ 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ] );
+    $wp_customize->add_control( 'show_header_search', [
+        'label'   => __( 'Tampilkan Ikon Pencarian di Header', 'mediman' ),
+        'section' => 'mediman_header_section',
+        'type'    => 'checkbox',
+    ] );
+
+    $wp_customize->add_setting( 'show_dark_mode_toggle', [ 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ] );
+    $wp_customize->add_control( 'show_dark_mode_toggle', [
+        'label'   => __( 'Tampilkan Tombol Mode Gelap/Terang', 'mediman' ),
+        'section' => 'mediman_header_section',
+        'type'    => 'checkbox',
+    ] );
+
+    // =================================================
+    // === BAGIAN BARU: PENGATURAN IKON MEDIA SOSIAL ===
+    // =================================================
+    $wp_customize->add_setting( 'mediman_facebook_url', [
+        'default'           => 'https://facebook.com',
+        'sanitize_callback' => 'esc_url_raw',
+    ] );
+    $wp_customize->add_control( 'mediman_facebook_url', [
+        'label'       => __( 'URL Facebook', 'mediman' ),
+        'description' => __( 'Kosongkan untuk menyembunyikan ikon.', 'mediman' ),
+        'section'     => 'mediman_header_section',
+        'type'        => 'url',
+    ] );
+
+    $wp_customize->add_setting( 'mediman_twitter_url', [
+        'default'           => 'https://twitter.com',
+        'sanitize_callback' => 'esc_url_raw',
+    ] );
+    $wp_customize->add_control( 'mediman_twitter_url', [
+        'label'       => __( 'URL Twitter/X', 'mediman' ),
+        'description' => __( 'Kosongkan untuk menyembunyikan ikon.', 'mediman' ),
+        'section'     => 'mediman_header_section',
+        'type'        => 'url',
+    ] );
+
+    $wp_customize->add_setting( 'mediman_instagram_url', [
+        'default'           => 'https://instagram.com',
+        'sanitize_callback' => 'esc_url_raw',
+    ] );
+    $wp_customize->add_control( 'mediman_instagram_url', [
+        'label'       => __( 'URL Instagram', 'mediman' ),
+        'description' => __( 'Kosongkan untuk menyembunyikan ikon.', 'mediman' ),
+        'section'     => 'mediman_header_section',
+        'type'        => 'url',
+    ] );
+
+    
+
+
+    // =================================================
+    // === PENGATURAN WARNA IKON MEDIA SOSIAL ===
+    // =================================================
+    $wp_customize->add_setting( 'mediman_social_icon_color', [
+        'default'           => '#000000',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ] );
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mediman_social_icon_color', [
+        'label'       => __( 'Warna Ikon Media Sosial', 'mediman' ),
+        'section'     => 'mediman_header_section',
+    ] ) );
+
+    $wp_customize->add_setting( 'mediman_social_icon_hover_color', [
+        'default'           => '#0d6efd', // Warna biru default bootstrap
+        'sanitize_callback' => 'sanitize_hex_color',
+    ] );
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mediman_social_icon_hover_color', [
+        'label'       => __( 'Warna Ikon Media Sosial (Hover)', 'mediman' ),
+        'section'     => 'mediman_header_section',
+    ] ) );
+
+    // =========================================================================
+    // 3. SECTION: TIPOGRAFI (FONT)
+    // =========================================================================
+    // SECTION: TIPOGRAFI (FONT)
+    $wp_customize->add_section( 'mediman_typography_section', [
+        'title'    => __( 'Tipografi (Font)', 'mediman' ),
+        'panel'    => 'mediman_theme_options_panel',
+        'priority' => 15,
+    ] );
+
+    // Daftar pilihan font (disederhanakan untuk contoh)
+    $font_choices = [
+        'Roboto'           => 'Roboto (Sans-serif)',
+        'Open Sans'        => 'Open Sans (Sans-serif)',
+        'Lato'             => 'Lato (Sans-serif)',
+        'Poppins'          => 'Poppins (Sans-serif)',
+        'Playfair Display' => 'Playfair Display (Serif)',
+        'Merriweather'     => 'Merriweather (Serif)',
+        'DM Serif Text'    => 'DM Serif Text (Serif)',
+    ];
+
+    // --- Pengaturan disederhanakan menjadi 2: Judul dan Body ---
+    
+    // Font untuk Judul (H1, H2, H3, dll)
+    $wp_customize->add_setting('heading_font_family', ['default' => 'Playfair Display', 'sanitize_callback' => 'sanitize_text_field']);
+    $wp_customize->add_control('heading_font_family', [
+        'label'   => __('Font untuk Semua Judul', 'mediman'),
+        'section' => 'mediman_typography_section',
+        'type'    => 'select',
+        'choices' => $font_choices,
+    ]);
+
+    // Font untuk Body & Paragraf
+    $wp_customize->add_setting('body_font_family', ['default' => 'Roboto', 'sanitize_callback' => 'sanitize_text_field']);
+    $wp_customize->add_control('body_font_family', [
+        'label'   => __('Font untuk Teks Paragraf', 'mediman'),
+        'section' => 'mediman_typography_section',
+        'type'    => 'select',
+        'choices' => $font_choices,
+    ]);
+
+    
+    // =========================================================================
+    // SECTION PENGATURAN LABEL KATEGORI
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_category_label_section', [
+        'title'       => __( 'Label Kategori', 'mediman' ),
+        'description' => __( 'Atur tampilan label kategori pada kartu postingan.', 'mediman' ),
+        'panel'       => 'mediman_theme_options_panel',
+        'priority'    => 50,
+    ] );
+
+    // 1. Warna Latar (dengan Alpha/Transparansi)
+    $wp_customize->add_setting( 'category_label_bg_color', ['default' => 'rgba(220, 53, 69, 1)', 'sanitize_callback' => 'sanitize_text_field']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'category_label_bg_color', [
+        'label'   => __( 'Warna Latar', 'mediman' ),
+        'section' => 'mediman_category_label_section',
+        'input_attrs' => [
+            'data-alpha-enabled' => 'true',
+        ],
+    ] ) );
+
+    // 2. Warna Teks
+    $wp_customize->add_setting( 'category_label_text_color', ['default' => '#ffffff', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'category_label_text_color', [
+        'label'   => __( 'Warna Teks', 'mediman' ),
+        'section' => 'mediman_category_label_section',
+    ] ) );
+
+    // 3. Pilihan Font
+    $font_choices = ['Roboto'=>'Roboto', 'Open Sans'=>'Open Sans', 'Lato'=>'Lato', 'Poppins'=>'Poppins'];
+    $wp_customize->add_setting('category_label_font_family', ['default' => 'Poppins', 'sanitize_callback' => 'sanitize_text_field']);
+    $wp_customize->add_control('category_label_font_family', [
+        'label'   => __('Font Label', 'mediman'),
+        'section' => 'mediman_category_label_section',
+        'type'    => 'select',
+        'choices' => $font_choices,
+    ]);
+
+    // 4. Ukuran Font
+    $wp_customize->add_setting('category_label_font_size', ['default' => 12, 'sanitize_callback' => 'absint']);
+    $wp_customize->add_control('category_label_font_size', [
+        'label'   => __('Ukuran Font (px)', 'mediman'),
+        'section' => 'mediman_category_label_section',
+        'type'    => 'number',
+        'input_attrs' => ['min' => 8, 'max' => 24, 'step' => 1],
+    ]);
+
+    // 5. Ketebalan Font
+    $font_weight_choices = ['400'=>'Normal', '600'=>'Semi-Bold', '700'=>'Bold'];
+    $wp_customize->add_setting('category_label_font_weight', ['default' => '600', 'sanitize_callback' => 'absint']);
+    $wp_customize->add_control('category_label_font_weight', [
+        'label'   => __('Ketebalan Font', 'mediman'),
+        'section' => 'mediman_category_label_section',
+        'type'    => 'select',
+        'choices' => $font_weight_choices,
+    ]);
+    
+    // =========================================================================
+    // 5. SECTION: PENGATURAN POSTINGAN TUNGGAL (SINGLE POST)
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_single_post_section', [
+        'title'    => __( 'Postingan Tunggal', 'mediman' ),
+        'panel'    => 'mediman_theme_options_panel',
+        'priority' => 30,
+    ] );
+
+   
+
+    $wp_customize->add_setting('enable_reading_progress', [ 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ] );
+    $wp_customize->add_control('enable_reading_progress', [
+        'label'   => __( 'Aktifkan "Reading Progress Bar"', 'mediman' ),
+        'section' => 'mediman_single_post_section',
+        'type'    => 'checkbox',
+    ]);
+
+    $wp_customize->add_setting( 'reading_progress_color', [
+        'default'           => '#0d6efd', // Warna biru Bootstrap sebagai default
+        'sanitize_callback' => 'sanitize_hex_color',
+    ] );
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'reading_progress_color', [
+        'label'       => __( 'Warna Reading Progress Bar', 'mediman' ),
+        'section'     => 'mediman_single_post_section',
+        'active_callback' => function() {
+            // Hanya tampilkan jika reading progress diaktifkan
+            return get_theme_mod('enable_reading_progress', true);
+        },
+    ] ) );
+    
+    $wp_customize->add_setting('enable_related_posts', [ 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ] );
+    $wp_customize->add_control('enable_related_posts', [
+        'label'   => __( 'Tampilkan "Artikel Terkait" di tengah konten', 'mediman' ),
+        'section' => 'mediman_single_post_section',
+        'type'    => 'checkbox',
+    ]);
+
+
+
+    
+
+    // =========================================================================
+    // SECTION BARU: PENGATURAN MENU MOBILE
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_mobile_menu_section', [
+        'title'    => __( 'Pengaturan Menu Mobile', 'mediman' ),
+        'panel'    => 'mediman_theme_options_panel',
+        'priority' => 40, // Atur prioritas agar urutannya pas
+    ] );
+
+    // Setting: Posisi Menu
+    $wp_customize->add_setting( 'mobile_menu_position', [
+        'default'           => 'start', // 'start' untuk kiri
+        'sanitize_callback' => 'sanitize_key',
+    ] );
+    $wp_customize->add_control( 'mobile_menu_position', [
+        'label'   => __( 'Posisi Menu Mobile', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+        'type'    => 'radio',
+        'choices' => [
+            'start' => __( 'Kiri', 'mediman' ),
+            'end'   => __( 'Kanan', 'mediman' ),
+        ],
+    ] );
+
+    // Setting: Judul Menu
+    $wp_customize->add_setting( 'mobile_menu_title', [
+        'default'           => get_bloginfo('name'),
+        'sanitize_callback' => 'sanitize_text_field',
+    ] );
+    $wp_customize->add_control( 'mobile_menu_title', [
+        'label'   => __( 'Judul di Header Menu Mobile', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+        'type'    => 'text',
+    ] );
+
+    
+
+    // --- Pengaturan Tombol Hamburger (Semua digabung di sini) ---
+    $wp_customize->add_setting( 'mobile_hamburger_icon_select', ['default' => 'default', 'sanitize_callback' => 'sanitize_key']);
+    $wp_customize->add_control( 'mobile_hamburger_icon_select', [
+        'label'   => __( 'Pilih Gaya Ikon Tombol', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+        'type'    => 'select',
+        'choices' => [
+            'default' => __( 'Garis 3 (Default)', 'mediman' ),
+            'plus'    => __( 'Tanda Plus (+)', 'mediman' ),
+            'dots'    => __( 'Titik 3 Vertikal', 'mediman' ),
+        ],
+    ]);
+
+
+    // === KONTROL BARU: BORDER RADIUS ===
+    $wp_customize->add_setting( 'mobile_hamburger_border_radius', ['default' => 4, 'sanitize_callback' => 'absint']);
+    $wp_customize->add_control( 'mobile_hamburger_border_radius', [
+        'label'   => __( 'Border Radius Tombol (px)', 'mediman' ),
+        'description' => __( 'Atur ke 0 untuk sudut tajam, atau nilai lebih tinggi untuk lebih melengkung.', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+        'type'    => 'number',
+        'input_attrs' => ['min' => 0, 'max' => 50, 'step' => 1],
+    ] );
+
+    $wp_customize->add_setting( 'mobile_hamburger_size', ['default' => 40, 'sanitize_callback' => 'absint']);
+    $wp_customize->add_control( 'mobile_hamburger_size', [
+        'label'   => __( 'Ukuran Tombol (px)', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+        'type'    => 'number',
+        'input_attrs' => ['min' => 30, 'max' => 60, 'step' => 1],
+    ]);
+
+    $wp_customize->add_setting( 'mobile_hamburger_padding', ['default' => 8, 'sanitize_callback' => 'absint']);
+    $wp_customize->add_control( 'mobile_hamburger_padding', [
+        'label'   => __( 'Padding Tombol (px)', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+        'type'    => 'number',
+        'input_attrs' => ['min' => 4, 'max' => 20, 'step' => 1],
+    ]);
+
+    $wp_customize->add_setting( 'mobile_hamburger_border_width', ['default' => 1, 'sanitize_callback' => 'absint']);
+    $wp_customize->add_control( 'mobile_hamburger_border_width', [
+        'label'   => __( 'Lebar Border Tombol (px)', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+        'type'    => 'number',
+        'input_attrs' => ['min' => 0, 'max' => 5, 'step' => 1],
+    ]);
+
+    $wp_customize->add_setting( 'mobile_hamburger_bg_color', ['default' => '#ffffff', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mobile_hamburger_bg_color', [
+        'label'   => __( 'Warna Background Tombol', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+    ]));
+
+    $wp_customize->add_setting( 'mobile_hamburger_border_color', ['default' => '#dee2e6', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mobile_hamburger_border_color', [
+        'label'   => __( 'Warna Border Tombol', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+    ]));
+
+    $wp_customize->add_setting( 'mobile_hamburger_icon_color', ['default' => '#212529', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mobile_hamburger_icon_color', [
+        'label'   => __( 'Warna Ikon Hamburger', 'mediman' ),
+        'section' => 'mediman_mobile_menu_section',
+    ]));
+
+
+    // =========================================================================
+    // PANEL PENGATURAN CAROUSEL
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_carousel_section', [
+        'title'       => __( 'Pengaturan Carousel/Slider', 'mediman' ),
+        'panel'       => 'mediman_theme_options_panel',
+        'priority'    => 35,
+    ] );
+
+    $wp_customize->add_setting( 'carousel_enable', [ 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ] );
+    $wp_customize->add_control( 'carousel_enable', [
+        'label'   => __( 'Aktifkan Carousel', 'mediman' ),
+        'section' => 'mediman_carousel_section',
+        'type'    => 'checkbox',
+    ] );
+
+    $wp_customize->add_setting( 'carousel_source', [ 'default' => 'latest', 'sanitize_callback' => 'sanitize_key' ] );
+    $wp_customize->add_control( 'carousel_source', [
+        'label'   => __( 'Sumber Postingan Carousel', 'mediman' ),
+        'section' => 'mediman_carousel_section',
+        'type'    => 'radio',
+        'choices' => [
+            'latest'     => __( 'Postingan Terbaru', 'mediman' ),
+            'popular'    => __( 'Postingan Terpopuler (Komentar)', 'mediman' ),
+        ],
+    ] );
+
+    $wp_customize->add_setting( 'carousel_post_count', [ 'default' => 4, 'sanitize_callback' => 'absint' ] );
+    $wp_customize->add_control( 'carousel_post_count', [
+        'label'   => __( 'Jumlah Slide', 'mediman' ),
+        'section' => 'mediman_carousel_section',
+        'type'    => 'number',
+        'input_attrs' => [ 'min' => 3, 'max' => 8 ],
+    ] );
+
+    // --- Pengaturan Warna & Tampilan Caption ---
+    $wp_customize->add_setting( 'carousel_caption_bg_color', ['default' => 'rgba(0,0,0,0.5)', 'sanitize_callback' => 'sanitize_text_field']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'carousel_caption_bg_color', [
+        'label'   => __( 'Warna Latar Kotak Teks', 'mediman' ),
+        'description' => __( 'Gunakan picker dengan slider transparansi.', 'mediman'),
+        'section' => 'mediman_carousel_section',
+    ] ) );
+    
+    $wp_customize->add_setting( 'carousel_category_bg_color', ['default' => '#dc3545', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'carousel_category_bg_color', [
+        'label'   => __( 'Warna Latar Tombol Kategori', 'mediman' ),
+        'section' => 'mediman_carousel_section',
+    ] ) );
+
+
+        // Fungsi untuk membuat pengaturan Blok Kategori secara berulang
+    function mediman_create_category_block_settings( $wp_customize, $block_number ) {
+        $id = 'cat_block_' . $block_number;
+        
+        $wp_customize->add_section( 'mediman_' . $id . '_section', [
+            'title'       => __( 'Blok Kategori Halaman Depan #', 'mediman' ) . $block_number,
+            'panel'       => 'mediman_theme_options_panel',
+            'priority'    => 50 + $block_number,
+        ] );
+
+        // Dropdown untuk memilih kategori (ini juga berfungsi sebagai pengaktif blok)
+        $categories = get_categories();
+        $cats = ['' => '-- Nonaktifkan Blok Ini --'];
+        foreach ( $categories as $category ) {
+            $cats[ $category->term_id ] = $category->name;
+        }
+        $wp_customize->add_setting( $id . '_category_id', [ 'default' => '', 'sanitize_callback' => 'absint' ] );
+        $wp_customize->add_control( $id . '_category_id', [
+            'label'   => __( 'Pilih Kategori untuk Ditampilkan', 'mediman' ),
+            'section' => 'mediman_' . $id . '_section',
+            'type'    => 'select',
+            'choices' => $cats,
+        ] );
+        
+        // Input untuk Judul Section Kustom
+        $wp_customize->add_setting( $id . '_title', [ 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ] );
+        $wp_customize->add_control( $id . '_title', [
+            'label'   => __( 'Judul Kustom (Opsional)', 'mediman' ),
+            'description' => __( 'Jika kosong, akan menggunakan nama kategori.', 'mediman' ),
+            'section' => 'mediman_' . $id . '_section',
+            'type'    => 'text',
+        ] );
+
+        // Dropdown untuk memilih GAYA LAYOUT
+        $wp_customize->add_setting( $id . '_layout_style', [ 'default' => 'magazine', 'sanitize_callback' => 'sanitize_key' ] );
+        $wp_customize->add_control( $id . '_layout_style', [
+            'label'   => __( 'Pilih Gaya Layout', 'mediman' ),
+            'section' => 'mediman_' . $id . '_section',
+            'type'    => 'select',
+            'choices' => [
+                'magazine' => __( 'Layout Majalah', 'mediman' ),
+                'grid'     => __( 'Layout Grid ', 'mediman' ),
+                'list'     => __( 'Layout Gambar di kiri', 'mediman' ),
+            ],
+        ] );
+    }
+
+    // Buat pengaturan untuk 3 blok kategori
+    for ( $i = 1; $i <= 3; $i++ ) {
+        mediman_create_category_block_settings( $wp_customize, $i );
+    }
+
+
+    // =========================================================================
+    // SECTION PENGATURAN HALAMAN POSTINGAN TUNGGAL
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_single_post_section', [
+        'title'       => __( 'Pengaturan Single Post', 'mediman' ),
+        'panel'       => 'mediman_theme_options_panel',
+        'priority'    => 60,
+    ] );
+
+    $wp_customize->add_setting( 'single_post_show_toc', [ 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ] );
+    $wp_customize->add_control( 'single_post_show_toc', [
+        'label'   => __( 'Tampilkan Daftar Isi (Table of Contents)', 'mediman' ),
+        'section' => 'mediman_single_post_section',
+        'type'    => 'checkbox',
+    ] );
+
+    
+     $wp_customize->add_section( 'mediman_profile_section', [
+        'title'       => __( 'Pengaturan Avatar Default', 'mediman' ),
+        'priority'    => 120,
+        'panel'       => 'mediman_theme_options_panel',
+    ] );
+
+    $wp_customize->add_setting( 'global_default_author_avatar', [
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ] );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'global_default_author_avatar', [
+        'label'       => __( 'Upload Avatar Default Global', 'mediman' ),
+        'description' => __( 'Avatar ini akan digunakan jika penulis tidak memiliki Gravatar.', 'mediman'),
+        'section'     => 'mediman_profile_section',
+    ] ) );   
+
+    // =========================================================================
+    // 6. SECTION: PENGATURAN FOOTER
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_footer_section', [
+        'title'       => __( 'Pengaturan Footer', 'mediman' ),
+        'panel'       => 'mediman_theme_options_panel',
+        'priority'    => 200, // Taruh di paling bawah
+    ] );
+
+    // KONTROL UNTUK TEKS COPYRIGHT
+    $wp_customize->add_setting( 'footer_copyright_text', [
+        'default'           => '© ' . date('Y') . ' ' . get_bloginfo('name') . '. All Rights Reserved.',
+        'sanitize_callback' => 'wp_kses_post', // Mengizinkan beberapa tag HTML dasar seperti <a>
+    ] );
+    $wp_customize->add_control( 'footer_copyright_text', [
+        'label'       => __( 'Teks Copyright di Footer', 'mediman' ),
+        'description' => __( 'Anda bisa menggunakan tag HTML dasar seperti <a> untuk link.', 'mediman'),
+        'section'     => 'mediman_footer_section',
+        'type'        => 'textarea',
+    ] );
+
+
+    // =========================================================================
+    // PANEL PENGATURAN NEWS TICKER
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_ticker_section', [
+        'title'       => __( 'Pengaturan News Ticker', 'mediman' ),
+        'panel'       => 'mediman_theme_options_panel',
+        'priority'    => 30,
+    ] );
+
+    $wp_customize->add_setting( 'ticker_enable', [ 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ] );
+    $wp_customize->add_control( 'ticker_enable', ['label' => __( 'Aktifkan News Ticker', 'mediman' ),'section' => 'mediman_ticker_section','type' => 'checkbox']);
+
+    // --- PENGATURAN BARU UNTUK JUDUL TICKER ---
+    $wp_customize->add_setting( 'ticker_label_text', [ 'default' => 'TRENDING', 'sanitize_callback' => 'sanitize_text_field' ] );
+    $wp_customize->add_control( 'ticker_label_text', ['label' => __( 'Teks Label', 'mediman' ),'section' => 'mediman_ticker_section','type' => 'text']);
+
+    $wp_customize->add_setting( 'ticker_label_icon', [ 'default' => 'bi-lightning-fill', 'sanitize_callback' => 'sanitize_text_field' ] );
+    $wp_customize->add_control( 'ticker_label_icon', [
+        'label'   => __( 'Pilih Ikon Label', 'mediman' ),
+        'section' => 'mediman_ticker_section',
+        'type'    => 'select',
+        'choices' => [
+            'bi-lightning-fill' => __( 'Petir (Trending)', 'mediman' ),
+            'bi-fire'           => __( 'Api (Hot)', 'mediman' ),
+            'bi-megaphone-fill' => __( 'Megafon (Info)', 'mediman' ),
+            'bi-star-fill'      => __( 'Bintang (Penting)', 'mediman' ),
+        ],
+    ] );
+    
+    $wp_customize->add_setting( 'ticker_desktop_label_type', [ 'default' => 'icon_text', 'sanitize_callback' => 'sanitize_key' ] );
+    $wp_customize->add_control( 'ticker_desktop_label_type', [
+        'label'   => __( 'Tampilan Label (Desktop)', 'mediman' ),
+        'section' => 'mediman_ticker_section',
+        'type'    => 'select',
+        'choices' => ['none' => 'Tanpa Label','text' => 'Hanya Teks','icon' => 'Hanya Ikon','icon_text' => 'Ikon & Teks'],
+    ] );
+
+    $wp_customize->add_setting( 'ticker_mobile_label_type', [ 'default' => 'icon', 'sanitize_callback' => 'sanitize_key' ] );
+    $wp_customize->add_control( 'ticker_mobile_label_type', [
+        'label'   => __( 'Tampilan Label (Mobile)', 'mediman' ),
+        'section' => 'mediman_ticker_section',
+        'type'    => 'select',
+        'choices' => ['none' => 'Tanpa Label','text' => 'Hanya Teks','icon' => 'Hanya Ikon','icon_text' => 'Ikon & Teks'],
+    ] );
+
+    $wp_customize->add_setting( 'ticker_post_source', [ 'default' => 'popular', 'sanitize_callback' => 'sanitize_key' ] );
+    $wp_customize->add_control( 'ticker_post_source', [
+        'label'   => __( 'Sumber Postingan', 'mediman' ),
+        'section' => 'mediman_ticker_section',
+        'type'    => 'radio',
+        'choices' => [
+            'popular' => __( 'Terpopuler (Berdasarkan Komentar)', 'mediman' ),
+            'latest'  => __( 'Terbaru', 'mediman' ),
+        ],
+    ] );
+
+    $wp_customize->add_setting( 'ticker_bg_color', ['default' => '#f8f9fa', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'ticker_bg_color', [
+        'label'   => __( 'Warna Latar Ticker', 'mediman' ),
+        'section' => 'mediman_ticker_section',
+    ] ) );
+
+    $wp_customize->add_setting( 'ticker_title_bg_color', ['default' => '#198754', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'ticker_title_bg_color', [
+        'label'   => __( 'Warna Latar Judul', 'mediman' ),
+        'section' => 'mediman_ticker_section',
+    ] ) );
+    
+    $wp_customize->add_setting( 'ticker_text_color', ['default' => '#212529', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'ticker_text_color', [
+        'label'   => __( 'Warna Teks Ticker', 'mediman' ),
+        'section' => 'mediman_ticker_section',
+    ] ) );
+
+    $wp_customize->add_setting( 'ticker_show_nav', [ 'default' => false, 'sanitize_callback' => 'wp_validate_boolean' ] );
+    $wp_customize->add_control( 'ticker_show_nav', [
+        'label'   => __( 'Tampilkan Tombol Navigasi (Next/Prev)', 'mediman' ),
+        'section' => 'mediman_ticker_section',
+        'type'    => 'checkbox',
+    ] );
+
+
+    // =========================================================================
+    // SECTION PENGATURAN FITUR TAMBAHAN
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_features_section', [
+        'title'       => __( 'Fitur Tambahan', 'mediman' ),
+        'panel'       => 'mediman_theme_options_panel',
+        'priority'    => 150,
+    ] );
+
+    // Kontrol untuk mengaktifkan Tombol Scroll to Top
+    $wp_customize->add_setting( 'enable_scroll_to_top', [ 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ] );
+    $wp_customize->add_control( 'enable_scroll_to_top', [
+        'label'   => __( 'Aktifkan Tombol Scroll to Top', 'mediman' ),
+        'section' => 'mediman_features_section',
+        'type'    => 'checkbox',
+    ] );
+    
+    // Kontrol untuk Warna Latar Tombol
+    $wp_customize->add_setting( 'scroll_top_bg_color', ['default' => '#0d6efd', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'scroll_top_bg_color', [
+        'label'   => __( 'Warna Latar Tombol Scroll', 'mediman' ),
+        'section' => 'mediman_features_section',
+    ] ) );
+    
+    // Kontrol untuk Warna Ikon Tombol
+    $wp_customize->add_setting( 'scroll_top_icon_color', ['default' => '#ffffff', 'sanitize_callback' => 'sanitize_hex_color']);
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'scroll_top_icon_color', [
+        'label'   => __( 'Warna Ikon Tombol Scroll', 'mediman' ),
+        'section' => 'mediman_features_section',
+    ] ) );
+    
+
+    // =========================================================================
+    // PENAMBAHAN PADA SECTION BAWAAN WORDPRESS
+    // =========================================================================
+    $wp_customize->add_setting('light_mode_logo', ['default' => '', 'transport' => 'postMessage', 'sanitize_callback' => 'esc_url_raw']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'light_mode_logo', ['label' => 'Logo Light Mode', 'section' => 'title_tagline', 'settings' => 'light_mode_logo', 'priority' => 8]));
+    
+    $wp_customize->add_setting('dark_mode_logo', ['default' => '', 'transport' => 'postMessage', 'sanitize_callback' => 'esc_url_raw']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'dark_mode_logo', ['label' => 'Logo Dark Mode', 'section' => 'title_tagline', 'settings' => 'dark_mode_logo', 'priority' => 9]));
+
+        // === KONTROL BARU UNTUK MEMILIH IKON ===
+    $wp_customize->add_setting( 'scroll_top_icon_class', [ 'default' => 'bi-arrow-up', 'sanitize_callback' => 'sanitize_text_field' ] );
+    $wp_customize->add_control( 'scroll_top_icon_class', [
+        'label'   => __( 'Pilih Ikon Tombol Scroll', 'mediman' ),
+        'section' => 'mediman_features_section',
+        'type'    => 'select',
+        'choices' => [
+            'bi-arrow-up'         => 'Panah Atas (Standar)',
+            'bi-chevron-up'       => 'Panah Atas (Chevron)',
+            'bi-arrow-up-short'   => 'Panah Atas (Pendek)',
+            'bi-eject-fill'     => 'Eject',
+        ],
+    ] );
+
+
+
+    // =========================================================================
+    // SECTION PENGATURAN JUDUL "LATEST ARTICLES"
+    // =========================================================================
+    $wp_customize->add_section( 'mediman_latest_posts_title_section', [
+        'title'       => __( 'Judul Section Artikel Terbaru', 'mediman' ),
+        'description' => __( 'Atur judul dan subjudul untuk blok "Latest Articles" di halaman depan.', 'mediman' ),
+        'priority'    => 40,
+        'panel'       => 'mediman_theme_options_panel',
+    ] );
+
+    // 1. Kontrol untuk Judul Utama
+    $wp_customize->add_setting( 'latest_posts_section_title', [
+        'default'           => 'LATEST ARTICLES',
+        'sanitize_callback' => 'sanitize_text_field',
+    ] );
+    $wp_customize->add_control( 'latest_posts_section_title', [
+        'label'   => __( 'Judul Utama Section', 'mediman' ),
+        'section' => 'mediman_latest_posts_title_section',
+        'type'    => 'text',
+    ] );
+
+    // 2. Kontrol untuk Subjudul
+    $wp_customize->add_setting( 'latest_posts_section_subtitle', [
+        'default'           => 'Discover the most recent articles from our authors.',
+        'sanitize_callback' => 'sanitize_text_field',
+    ] );
+    $wp_customize->add_control( 'latest_posts_section_subtitle', [
+        'label'   => __( 'Subjudul Section', 'mediman' ),
+        'section' => 'mediman_latest_posts_title_section',
+        'type'    => 'textarea',
+    ] );
+
+
+}
+add_action('customize_register', 'mediman_customize_register_all');
+
+
+
+
+
+/**
+ * Memuat skrip JavaScript untuk live preview di Customizer.
+ */
+function mediman_customize_preview_js() {
+    wp_enqueue_script(
+        'mediman-customizer-preview', 
+        get_template_directory_uri() . '/assets/js/customizer.js', 
+        ['jquery', 'customize-preview'], 
+        MEDIMAN_THEME_VERSION, 
+        true
+    );
+}
+add_action('customize_preview_init', 'mediman_customize_preview_js');

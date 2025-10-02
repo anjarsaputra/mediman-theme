@@ -1,0 +1,28 @@
+/* Tambahkan CSS custom untuk mengatur font */
+h1{
+    font-family: '<?php echo get_theme_mod('h1_font_family', 'Playfair Display'); ?>', serif;
+    font-weight: bolder;
+}
+
+h2{
+    font-family: '<?php echo get_theme_mod('h2_font_family', 'Playfair Display'); ?>', serif;
+    
+   
+
+}
+
+p {
+    font-family: '<?php echo get_theme_mod('paragraph_font_family', 'Roboto'); ?>', sans-serif;
+    font-weight: normal;
+}
+
+.excerpt {
+    font-family: '<?php echo get_theme_mod('excerpt_font_family', 'Open Sans'); ?>', sans-serif;
+    font-weight: normal;
+}
+
+.title-span {
+    font-family: '<?php echo get_theme_mod('title_span_font_family', 'DM Serif Text'); ?>', serif;
+    font-size: larger;
+   
+}
