@@ -1,0 +1,2413 @@
+/* 
+Theme Name: Mediman 
+Theme URI: https://aradevweb.com/mediman 
+Author: ARADEV
+URI: https://aratheme.id 
+Description: Tema Wordpress Untuk Berita, Blog dan Majalah 
+Version: 1.0.0 
+Text Domain: mediman 
+*/
+
+
+
+
+
+/*-------------------------------------------------------------- >>> DAFTAR ISI: ---------------------------------------------------------------- 1.0 Pengaturan Font Lokal (@font-face) 2.0 Style Umum & Reset 3.0 Style Header 4.0 Style Konten & Layout Postingan 5.0 Style Footer 6.0 Style Mode Gelap (Dark Mode) 7.0 Style Lain-lain & Helper --------------------------------------------------------------*/
+/*-------------------------------------------------------------- 1.0 Pengaturan Font Lokal (@font-face) --------------------------------------------------------------*/
+ @font-face {
+     font-family: 'playwrite_huregular';
+     src: url("./assets/fonts/play/playwritehu-variablefont_wght-webfont.woff2") format("woff2"), url("./assets/fonts/play/playwritehu-variablefont_wght-webfont.woff") format("woff");
+     font-weight: 400;
+     font-style: normal;
+     font-display: swap;
+}
+ @font-face {
+     font-family: 'marmeladregular';
+     src: url("./assets/fonts/marmelad/Marmelad-Regular.woff2") format("woff2"), url("./assets/fonts/marmelad/marmelad-regular-webfont.woff") format("woff");
+     font-weight: 400;
+     font-style: normal;
+     font-display: swap;
+}
+/*-------------------------------------------------------------- 2.0 Style Umum & Reset --------------------------------------------------------------*/
+ body {
+     transition: background-color 0.3s ease, color 0.3s ease;
+}
+ a {
+     text-decoration: none;
+     transition: color 0.2s ease-in-out;
+}
+ .site-header .header-main-row {
+     min-height: 70px;
+}
+ .header-logo .site-title {
+     font-size: 1.8rem;
+}
+ .navbar-toggler {
+     width: 44px;
+     height: 44px;
+     padding: 0;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     border: 1px solid #dee2e6;
+}
+ #theme-switcher {
+     width: 44px;
+     height: 44px;
+     font-size: 0.8rem;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+/*-------------------------------------------------------------- 3.0 Style Header --------------------------------------------------------------*/
+ .logo {
+     max-height: 60px;
+     width: auto;
+}
+ .social-icons a {
+     margin-right: 18px;
+     font-size: 1rem;
+}
+ .social-icons a:last-child {
+     margin-right: 0;
+}
+/*-------------------------------------------------------------- 4.0 Style Konten & Layout Postingan --------------------------------------------------------------*/
+ .post-card1 {
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     border-radius: 8px;
+     border: none;
+     overflow: hidden;
+}
+ .archive-title h2 {
+     font-size: 1.5rem;
+     font-weight: 700;
+}
+ .archive-description p {
+     color: #777;
+}
+ .title-span {
+     font-family: 'Playwrite HU', sans-serif;
+}
+
+/* 1. Siapkan semua wadah gambar */
+.post-card-thumbnail, 
+.card-thumbnail-v2, 
+.featured-thumbnail-split,
+.side-post-thumbnail-split,
+.related-post-thumbnail,
+.side-grid-thumbnail,
+.grid-card-thumbnail { /* <-- DITAMBAHKAN DI SINI */
+    overflow: hidden;
+    display: block;
+    border-radius: 8px;
+   
+}
+
+/* 2. Beri efek transisi pada semua gambar di dalamnya */
+.post-card-thumbnail img,
+.card-thumbnail-v2 img,
+.featured-thumbnail-split img,
+.side-post-thumbnail-split img,
+.related-post-thumbnail img,
+.side-grid-thumbnail img,
+.grid-card-thumbnail img { /* <-- DITAMBAHKAN DI SINI */
+    transition: transform 0.4s ease-in-out;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 3. Terapkan efek zoom saat kartu di-hover */
+.post-card:hover .post-card-thumbnail img,
+.latest-article-card-v2:hover .card-thumbnail-v2 img,
+.featured-card-split:hover .featured-thumbnail-split img,
+.side-post-card-split:hover .side-post-thumbnail-split img,
+.related-post-card:hover .related-post-thumbnail img,
+.side-grid-card:hover .side-grid-thumbnail img,
+.grid-card-horizontal:hover .grid-card-thumbnail img { /* <-- DITAMBAHKAN DI SINI */
+    transform: scale(1.1); /* Perbesar gambar sebesar 10% */
+}
+
+/*--------------------------------------------------------------
+   Style untuk News Ticker (Desain Blok Final)
+   ==============================================================*/
+
+
+/* Blok Judul "TRENDING" */
+.ticker-title-block {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    flex-shrink: 0; /* Mencegah blok ini menyusut */
+    white-space: nowrap;
+}
+.ticker-title-block .ticker-text-label {
+    margin-left: 0.5rem;
+}
+
+/* Blok Konten Teks Berjalan */
+.typewriter-content-block {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    overflow: hidden;
+    flex-grow: 1; /* Mengisi sisa ruang */
+    min-width: 0; /* Kunci agar flexbox tidak rusak oleh konten panjang */
+}
+.typewriter-content-block a {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Potong teks jika meluber */
+}
+.typewriter-content-block .cursor {
+    display: inline-block;
+    background-color: currentColor;
+    width: 2px;
+    animation: blink 1s infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Blok Tombol Navigasi */
+.ticker-nav-block {
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
+    flex-shrink: 0;
+}
+.ticker-nav-buttons .btn {
+    border: 1px solid #ccc;
+}
+
+html.dark .ticker-nav-block .btn {
+    /* Border yang sedikit lebih terang */
+    color: black;              /* Warna ikon menjadi terang */
+}
+
+html.dark .ticker-nav-block .btn:hover {
+    background-color: var(--bs-tertiary-bg); /* Efek hover */
+}
+
+/*-------------------------------------------------------------- 5.0 Style Footer --------------------------------------------------------------*/
+/* Style untuk footer bisa ditambahkan di sini */
+/*-------------------------------------------------------------- 6.0 Style Mode Gelap (Dark Mode) --------------------------------------------------------------*/
+/* Transisi mulus */
+ body, .card {
+     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+/* Ketika elemen <html> memiliki class .dark */
+ html.dark {
+     color-scheme: dark;
+}
+/* Ganti warna variabel dasar Bootstrap untuk mode gelap */
+ html.dark body {
+     --bs-body-color: #dee2e6;
+     --bs-body-bg: #1c1c1e;
+    /* Sedikit lebih soft dari hitam pekat */
+     --bs-secondary-bg: #2c2c2e;
+     --bs-tertiary-bg: #3a3a3c;
+     --bs-border-color: #444446;
+     --bs-heading-color: #ffffff;
+     --bs-light-rgb: 43, 48, 53;
+     --bs-light-bg-subtle: #2c2c2e;
+}
+/* Penyesuaian umum elemen di mode gelap */
+ html.dark .bg-body, html.dark .sticky-top {
+     background-color: var(--bs-body-bg) !important;
+}
+ html.dark .shadow-sm {
+     box-shadow: 0 .125rem .25rem rgba(255, 255, 255, .075) !important;
+}
+ html.dark .border, html.dark .border-top, html.dark .border-bottom {
+     border-color: var(--bs-border-color) !important;
+}
+ html.dark .site-title, html.dark .navbar-nav .nav-link, html.dark a, html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+     color: var(--bs-heading-color);
+}
+ html.dark a:hover {
+     color: #ced4da;
+}
+/* Style untuk komponen spesifik di mode gelap */
+ html.dark .offcanvas {
+     background-color: var(--bs-secondary-bg);
+     color: var(--bs-body-color);
+}
+ html.dark .offcanvas .btn-close {
+     filter: invert(1) grayscale(100%) brightness(200%);
+}
+ html.dark .social-icons a, html.dark .btn-light {
+     color: var(--bs-body-color);
+}
+/* === STYLE BARU UNTUK KONTEN DI MODE GELAP === */
+/* Mengubah warna card */
+ html.dark .card, html.dark .post-card1 {
+     background-color: var(--bs-secondary-bg);
+     border: 1px solid var(--bs-border-color);
+}
+/* Mengubah warna teks di dalam card */
+ html.dark .card .card-title a, html.dark .post-card1 .card-title a {
+     color: var(--bs-heading-color);
+}
+ html.dark .card .card-text, html.dark .post-card1 .card-text, html.dark .author-details small, html.dark .archive-description p {
+     color: var(--bs-body-color);
+}
+ html.dark .author-details h6 {
+     color: var(--bs-heading-color);
+}
+/* Logika untuk menampilkan/menyembunyikan logo di mode gelap/terang */
+ html:not(.dark) .logo-dark {
+     display: none;
+}
+ html.dark .logo-light {
+     display: none;
+}
+ html.dark .logo-dark {
+     display: inline-block;
+}
+/* === STYLE BARU UNTUK FORM PENCARIAN DI MODE GELAP === */
+/* Mengatur style dasar untuk input field di mode gelap */
+ html.dark .form-control {
+     background-color: var(--bs-secondary-bg, #343a40);
+    /* Warna latar input yang lebih gelap */
+     color: var(--bs-heading-color, #ffffff);
+    /* Warna untuk teks yang diketik pengguna */
+     border-color: var(--bs-border-color, #495057);
+}
+/* Mengubah warna teks placeholder (contoh: "Pencarian...") */
+ html.dark .form-control::placeholder {
+     color: #adb5bd;
+    /* Warna abu-abu terang untuk placeholder */
+     opacity: 1;
+    /* Memastikan placeholder terlihat jelas */
+}
+/* Mengubah warna border & bayangan saat input di-klik (focus) */
+ html.dark .form-control:focus {
+     background-color: var(--bs-secondary-bg, #343a40);
+     color: var(--bs-heading-color, #ffffff);
+     border-color: #86b7fe;
+    /* Warna biru focus default Bootstrap agar konsisten */
+     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+/* Memastikan tombol pencarian tetap terlihat bagus */
+ html.dark .btn-success {
+     color: #fff;
+     background-color: #198754;
+     border-color: #198754;
+}
+/*-------------------------------------------------------------- 7.0 Style Lain-lain & Helper --------------------------------------------------------------*/
+ .scroll-to-top {
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+     background-color: #0d6efd;
+     color: white;
+     border: none;
+     padding: 10px 15px;
+     border-radius: 50%;
+     font-size: 20px;
+     cursor: pointer;
+     display: none;
+     z-index: 999;
+     transition: opacity 0.3s ease;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/*-------------------------------------------------------------- 9.0 Style Menu Off-Canvas Mobile ==============================================================*/
+/* Mengatur lebar menu agar tidak full screen */
+ .offcanvas.offcanvas-start {
+     width: 85%;
+    /* Menu akan mengambil 85% dari lebar layar */
+     max-width: 380px;
+    /* Lebar maksimal di perangkat tablet/layar lebih besar */
+}
+ .offcanvas.offcanvas-end {
+     width: 85%;
+     max-width: 380px;
+}
+/* Menambahkan bayangan (shadow) agar terlihat terangkat dari halaman */
+ .offcanvas {
+     box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+     border: none;
+}
+/* Memastikan lapisan overlay transparan-gelap tampil dengan benar */
+ .offcanvas-backdrop.show {
+     background-color: #000;
+     opacity: 0.5;
+}
+ .offcanvas-header .offcanvas-logo .logo {
+     max-height: 40px;
+    /* Atur ukuran logo di dalam menu mobile */
+}
+ .offcanvas-body {
+     padding-top: 1rem;
+     padding-bottom: 1rem;
+}
+/* --- Style Menu Off-Canvas Mobile (Dropdown Akordeon) --- */
+ #offcanvasMobileMenu .mobile-nav-menu .menu-item {
+     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+ #offcanvasMobileMenu .mobile-nav-menu > .menu-item > a {
+     padding: 0.5rem 0;
+     font-size: 14px;
+     font-weight: 700;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+}
+ #offcanvasMobileMenu .mobile-nav-menu > .menu-item:last-child {
+     border-bottom: none;
+}
+ #offcanvasMobileMenu .dropdown-caret {
+     font-size: 0.8rem;
+     transition: transform 0.3s ease;
+}
+ #offcanvasMobileMenu .menu-item.open > a > .dropdown-caret {
+     transform: rotate(180deg);
+}
+ #offcanvasMobileMenu .sub-menu {
+     list-style: none;
+     padding-left: 1.5rem;
+     overflow: hidden;
+     max-height: 0;
+     transition: max-height 0.4s ease-in-out;
+}
+ #offcanvasMobileMenu .menu-item.open > .sub-menu {
+     max-height: 500px;
+}
+ #offcanvasMobileMenu .sub-menu .menu-item {
+     padding: 10px 0px 10px 0px;
+     font-weight: 700;
+}
+ #offcanvasMobileMenu .sub-menu a {
+     padding: 0.6rem 0;
+     font-size: 14px;
+     opacity: 0.85;
+     border-bottom: 1px;
+     margin-bottom: 10px;
+    ;
+}
+/* Mengubah warna garis bawah di mode gelap */
+ html.dark .offcanvas-body .mobile-nav-menu > .menu-item {
+     border-color: var(--bs-border-color);
+     font-size: large;
+     padding: 7px 0px 7px 0px;
+}
+ 
+/* --- Style Mode Gelap (Dark Mode) --- */
+ html.dark {
+     color-scheme: dark;
+}
+ html.dark body {
+     --bs-body-color: #dee2e6;
+     --bs-body-bg: #212529;
+     --bs-secondary-bg: #343a40;
+     --bs-border-color: #495057;
+     --bs-heading-color: #ffffff;
+}
+ html.dark .bg-body {
+     background-color: var(--bs-body-bg) !important;
+}
+ html.dark a {
+     color: var(--bs-heading-color);
+}
+ html.dark .navbar-toggler {
+     border-color: var(--bs-border-color);
+}
+ html.dark .navbar-toggler-icon {
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+ html.dark .navbar-desktop-nav .navbar-nav .dropdown-menu {
+     background-color: var(--bs-secondary-bg);
+}
+ html.dark .offcanvas {
+     background-color: var(--bs-secondary-bg);
+}
+ html.dark .offcanvas .btn-close {
+     filter: invert(1) grayscale(100%) brightness(200%);
+}
+ html.dark #offcanvasMobileMenu .mobile-nav-menu .menu-item {
+     border-color: rgba(255, 255, 255, 0.1);
+}
+ html.dark #offcanvasMobileMenu .mobile-nav-menu > .menu-item > a {
+     padding: 0.5rem 0;
+     font-size: 14px;
+     font-weight: 700;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     color: white;
+}
+ html.dark #offcanvasMobileMenu .sub-menu a {
+     padding: 0.6rem 0;
+     font-size: 14px;
+     opacity: 0.85;
+     border-bottom: 1px;
+     margin-bottom: 10px;
+     color: white;
+}
+ html.dark .offcanvas-social-icons a {
+     font-size: 1rem;
+     margin: 0 12px;
+     color: white;
+}
+/*-------------------------------------------------------------- 10.0 Style Footer Off-Canvas ==============================================================*/
+ .offcanvas-footer {
+     padding-top: 1.5rem;
+     border-top: 1px solid var(--bs-border-color, #dee2e6);
+     margin-top: 1.5rem;
+}
+ .offcanvas-social-icons a {
+     font-size: 1rem;
+     margin: 0 12px;
+}
+ .offcanvas-copyright a {
+     font-size: 0.8rem;
+     opacity: 0.7;
+     color: var(--bs-body-color);
+}
+ html.dark .offcanvas-copyright a {
+     color: var(--bs-body-color);
+}
+ html.dark .navbar-desktop-nav .navbar-nav .dropdown-menu {
+     background-color: var(--bs-secondary-bg);
+     color: white;
+}
+ html.dark .navbar-desktop-nav .navbar-nav .dropdown-menu a {
+     color: rgb(255, 255, 255);
+}
+ html.dark .navbar-desktop-nav .navbar-nav .dropdown-menu a:hover{
+     background-color: rgb(35, 34, 34);
+     color: rgb(255, 255, 255);
+}
+/* Style untuk link di navigasi utama desktop agar seragam */
+ .navbar-desktop-nav .navbar-nav > .nav-item > .nav-link {
+     padding: 0.75rem 1rem;
+     font-size: 0.9rem;
+     font-weight: 600;
+     text-transform: uppercase;
+     letter-spacing: .05em;
+}
+ .navbar-desktop-nav .navbar-nav > .nav-item.active > .nav-link {
+     font-weight: 700;
+}
+/* Style untuk item di dalam dropdown desktop */
+ .navbar-desktop-nav .dropdown-item {
+     font-weight: 500;
+}
+ .navbar-desktop-nav .dropdown-item:hover {
+     background-color: #f8f9fa;
+}
+/* Penyesuaian Dark Mode untuk link navigasi desktop */
+ html.dark .navbar-desktop-nav .navbar-nav > .nav-item > .nav-link {
+     color: rgba(255, 255, 255, 0.85);
+}
+ html.dark .navbar-desktop-nav .navbar-nav > .nav-item > .nav-link:hover, html.dark .navbar-desktop-nav .navbar-nav > .nav-item.active > .nav-link {
+     color: #ffffff;
+}
+ html.dark .navbar-desktop-nav .dropdown-item:hover {
+     background-color: rgba(255, 255, 255, 0.1);
+}
+/* Style untuk Typewriter Ticker */
+ 
+/*--------------------------------------------------------------
+   Style untuk News Ticker (Versi Final & Paling Stabil)
+   ==============================================================*/
+.ticker-final-wrapper {
+    display: flex;
+    flex-wrap: nowrap; /* Memaksa semua elemen untuk tetap satu baris */
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+/* Blok Judul "TRENDING" */
+.ticker-title-block {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    flex-shrink: 0; /* Mencegah blok ini menyusut */
+    white-space: nowrap;
+}
+.ticker-title-block .ticker-text-label {
+    margin-left: 0.5rem;
+}
+/* Style untuk ikon saja di mobile */
+.ticker-title-block .d-lg-none i {
+    font-size: 1.2rem;
+}
+
+.typewriter-content-block .cursor {
+    display: inline-block;
+    background-color: currentColor;
+    width: 2px;
+    animation: blink 1s infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+
+/*-------------------------------------------------------------- Style untuk Post Carousel (Baru) ==============================================================*/
+ .mediman-carousel-wrap {
+     border-radius: 12px;
+     overflow: hidden;
+     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+/* Menghapus margin-bottom default dari pembungkus */
+ .mediman-carousel-wrap.mb-4 {
+     margin-bottom: 0 !important;
+}
+ .carousel-item {
+     height: 650px;
+     max-height: 85vh;
+}
+ .carousel-item .carousel-image {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+}
+ .carousel-caption {
+     top: 0;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 2rem;
+     text-align: center;
+}
+ .caption-content-box {
+     padding: 1.5rem 2rem;
+     border-radius: 8px;
+     max-width: 800px;
+}
+ .caption-category {
+     display: inline-block;
+     padding: 0.3em 0.8em;
+     font-size: 0.8rem;
+     font-weight: 700;
+     text-transform: uppercase;
+     color: #fff;
+     border-radius: 4px;
+     margin-bottom: 1rem;
+}
+ .caption-title a {
+     color: #fff;
+     text-decoration: none;
+     font-size: 2.25rem;
+     font-weight: 700;
+}
+ .caption-excerpt {
+     color: #fff;
+     opacity: 0.9;
+     font-size: 1rem;
+}
+ .carousel-indicators {
+     bottom: 10px;
+    /* Posisikan indikator di bawah slider */
+     margin-bottom: 1rem;
+}
+ .carousel-indicators [data-bs-target] {
+     box-sizing: content-box;
+     flex: 0 1 auto;
+     width: 30px;
+    /* Lebar dari setiap "pill" */
+     height: 5px;
+    /* Tinggi dari setiap "pill" */
+     padding: 0;
+     margin-right: 5px;
+     margin-left: 5px;
+     text-indent: -999px;
+     cursor: pointer;
+     background-color: #fff;
+     background-clip: padding-box;
+     border: 0;
+     border-top: 10px solid transparent;
+     border-bottom: 10px solid transparent;
+     opacity: 0.5;
+     transition: opacity .6s ease;
+     border-radius: 10px;
+    /* Membuat sudut menjadi sangat melengkung */
+}
+ .carousel-indicators .active {
+     opacity: 1;
+    /* Indikator yang aktif akan lebih terang */
+     background-color: #ffffff;
+    /* Warna biru untuk indikator aktif */
+}
+ #postSlider {
+     border-radius: 12px;
+    /* Membuat sudut slider melengkung */
+     overflow: hidden;
+    /* Memastikan gambar di dalamnya juga mengikuti sudut melengkung */
+     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    /* Menambahkan efek bayangan halus */
+}
+/*-------------------------------------------------------------- Style News Ticker (Versi Full-Width) ==============================================================*/
+ .typewriter-ticker-container {
+     background-color: #f8f9fa;
+    /* Warna latar default */
+     padding-top: 0.5rem;
+     padding-bottom: 0.5rem;
+     height: 40px;
+}
+/*-------------------------------------------------------------- Style untuk Section "Latest Articles" ==============================================================*/
+ .section-title-header .section-title {
+     font-weight: 700;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+     font-size: 1.8rem;
+     margin-bottom: 0.5rem;
+}
+ .section-title-header .section-title span {
+     display: inline-block;
+     padding-bottom: 0.5rem;
+     border-bottom: 3px solid #0d6efd;
+    /* Warna garis bawah, bisa diubah */
+}
+ .section-title-header .section-subtitle {
+     font-size: 1rem;
+     color: #6c757d;
+}
+ .latest-article-card {
+     background-color: #fff;
+     border: 1px solid #e9ecef;
+     border-radius: 8px;
+     overflow: hidden;
+     transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+ .latest-article-card:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+ .latest-article-card .card-thumbnail img {
+     width: 100%;
+     height: auto;
+     aspect-ratio: 16 / 9;
+     object-fit: cover;
+}
+ .latest-article-card .card-content {
+     padding: 1.25rem;
+}
+ .latest-article-card .card-category-tag {
+     display: inline-block;
+     background-color: #0d6efd;
+    /* Warna tombol kategori */
+     color: #fff;
+     padding: 0.25em 0.7em;
+     border-radius: 4px;
+     font-size: 0.75rem;
+     font-weight: 700;
+     text-transform: uppercase;
+     margin-bottom: 0.75rem;
+     text-decoration: none;
+}
+ .latest-article-card .card-title-latest {
+     font-size: 1.25rem;
+     font-weight: 600;
+     margin-bottom: 0.75rem;
+}
+ .latest-article-card .card-title-latest a {
+     color: #212529;
+     text-decoration: none;
+}
+ .latest-article-card .card-meta {
+     font-size: 0.8rem;
+     color: #6c757d;
+}
+ .latest-article-card .card-meta .card-date {
+     margin-left: 0.75rem;
+     padding-left: 0.75rem;
+     border-left: 1px solid #dee2e6;
+}
+/* Dark Mode untuk Section Latest Articles */
+ html.dark .latest-article-card {
+     background-color: var(--bs-secondary-bg);
+     border-color: var(--bs-border-color);
+}
+ html.dark .latest-article-card .card-title-latest a {
+     color: var(--bs-heading-color);
+}
+ html.dark .latest-article-card .card-meta {
+     color: var(--bs-body-color);
+}
+ html.dark .latest-article-card .card-meta .card-date {
+     border-left-color: var(--bs-border-color);
+}
+/* Style lain untuk judul, teks, dll. tetap sama */
+ .ticker-title-wrap {
+     flex-shrink: 0;
+}
+ .typewriter-wrap {
+     min-width: 0;
+     overflow: hidden;
+}
+ .typewriter-wrap a {
+     color: inherit;
+     text-decoration: none;
+     white-space: nowrap;
+}
+/* Dark Mode untuk Ticker */
+ html.dark .typewriter-ticker-container {
+     background-color: var(--bs-secondary-bg, #343a40) !important;
+     border-color: var(--bs-border-color, #495057) !important;
+}
+/*-------------------------------------------------------------- Style untuk Section "Latest Articles" (Layout 2 Kolom) ==============================================================*/
+/* Judul Section (tidak berubah) */
+ .section-title-header .section-title {
+     font-weight: 700;
+     text-transform: uppercase;
+     font-size: 1.8rem;
+     margin-bottom: 0.5rem;
+}
+ .section-title-header .section-title span {
+     display: inline-block;
+     padding-bottom: 0.5rem;
+     border-bottom: 3px solid #0d6efd;
+}
+ .section-title-header .section-subtitle {
+     font-size: 1rem;
+     color: #6c757d;
+}
+/* Style untuk Kartu Artikel */
+ .latest-article-card-v2 {
+     background-color: #fff;
+     border: 1px solid #e9ecef;
+     border-radius: 8px;
+     overflow: hidden;
+     transition: box-shadow 0.3s ease;
+}
+ .latest-article-card-v2:hover {
+     box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+/* Konten Teks di Kiri */
+ .latest-article-card-v2 .card-body {
+     padding: 1rem;
+}
+ .card-title-v2 {
+     font-size: 1.1rem;
+     font-weight: 600;
+     line-height: 1.4;
+     margin-bottom: 0.5rem;
+}
+ .card-title-v2 a {
+     color: #212529;
+     text-decoration: none;
+}
+ .card-category-tag-v2 {
+     display: inline-block;
+     color: #0d6efd;
+     font-size: 0.75rem;
+     font-weight: 700;
+     text-transform: uppercase;
+     margin-bottom: 0.75rem;
+}
+ .card-excerpt-v2 {
+     font-size: 0.9rem;
+     color: #6c757d;
+     margin-bottom: 1rem;
+}
+ .card-meta-v2 {
+     font-size: 0.8rem;
+     color: #6c757d;
+}
+/* Gambar di Kanan */
+ .card-thumbnail-v2 {
+     display: block;
+     height: 100%;
+}
+ .card-thumbnail-v2, .card-thumbnail-v2 a {
+     display: block;
+     height: 100%;
+    /* Memaksa pembungkus gambar untuk mengisi tinggi kolom */
+}
+ .card-thumbnail-v2 .img-fluid {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+}
+/* Dark Mode untuk Layout Ini */
+ html.dark .latest-article-card-v2 {
+     background-color: var(--bs-secondary-bg);
+     border-color: var(--bs-border-color);
+}
+ html.dark .card-title-v2 a {
+     color: var(--bs-heading-color);
+}
+ html.dark .card-excerpt-v2, html.dark .card-meta-v2 {
+     color: var(--bs-body-color);
+}
+/*-------------------------------------------------------------- Style untuk Section Kategori Kustom (Layout Majalah) ==============================================================*/
+ .latest-posts-section .section-title span {
+     border-bottom: 3px solid #0d6efd;
+    /* Warna garis bawah judul */
+     padding-bottom: 0.5rem;
+}
+ .post-card {
+     background-color: #fff;
+     border: 1px solid #e9ecef;
+     border-radius: 12px;
+     overflow: hidden;
+     display: flex;
+     flex-direction: column;
+     transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+ .post-card:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+}
+ .post-card-thumbnail img {
+     width: 100%;
+     aspect-ratio: 16 / 9;
+     object-fit: cover;
+}
+ .post-card-content {
+     padding: 1.25rem;
+     flex-grow: 1;
+     display: flex;
+     flex-direction: column;
+}
+ .post-card-body {
+     flex-grow: 1;
+}
+ .post-card .card-category-tag {
+     display: inline-block;
+     padding: 0.25em 0.7em;
+     border-radius: 4px;
+     font-weight: 700;
+}
+ .post-card-title {
+     font-size: 1.25rem;
+     font-weight: 600;
+}
+ .post-card-title a {
+     color: #212529;
+     text-decoration: none;
+}
+ .post-card-excerpt {
+     font-size: 0.95rem;
+     color: #6c757d;
+}
+ .post-card-footer {
+     padding-top: 1rem;
+     border-top: 1px solid #e9ecef;
+}
+ .author-avatar img {
+     width: 40px;
+     height: 40px;
+}
+ .author-details .author-name {
+     font-size: 0.9rem;
+     font-weight: 600;
+     color: #212529;
+}
+ .author-details .post-date {
+     color: #6c757d;
+     font-size: 0.8rem;
+}
+ .bookmark-icon a {
+     font-size: 1.25rem;
+     color: #6c757d;
+}
+ .bookmark-icon a:hover {
+     color: #0d6efd;
+}
+/* Dark Mode */
+ html.dark .post-card {
+     background-color: var(--bs-secondary-bg);
+     border-color: var(--bs-border-color);
+}
+ html.dark .post-card-title a, html.dark .author-details .author-name {
+     color: var(--bs-heading-color);
+}
+ html.dark .post-card-excerpt, html.dark .author-details .post-date, html.dark .bookmark-icon a {
+     color: var(--bs-body-color);
+}
+ html.dark .post-card-footer {
+     border-top-color: var(--bs-border-color);
+}
+/* Penyesuaian Dark Mode */
+ html.dark .typewriter-ticker-container {
+     background-color: var(--bs-secondary-bg, #343a40);
+}
+ html.dark .typewriter-wrap a {
+     color: var(--bs-body-color);
+}
+ html.dark .ticker-nav-buttons .btn {
+     border-color: var(--bs-border-color);
+     color: var(--bs-body-color);
+}
+/*-------------------------------------------------------------- 4.0 Style Mode Gelap (Dark Mode) ==============================================================*/
+ html.dark {
+     color-scheme: dark;
+}
+ html.dark body {
+     --bs-body-color: #dee2e6;
+     --bs-body-bg: #212529;
+     --bs-secondary-bg: #343a40;
+     --bs-border-color: #495057;
+     --bs-heading-color: #ffffff;
+}
+ html.dark .bg-body {
+     background-color: var(--bs-body-bg) !important;
+}
+ html.dark .navbar-toggler {
+     background-color: #ffffff !important;
+    /* Memaksa latar tombol menjadi PUTIH */
+     border-color: #dee2e6 !important;
+    /* Memberi border abu-abu terang */
+}
+ html.dark .navbar-toggler-icon {
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23000000' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+ html.dark .offcanvas {
+     background-color: var(--bs-secondary-bg);
+     color: var(--bs-body-color);
+}
+ html.dark .offcanvas .btn-close {
+     filter: invert(1) grayscale(100%) brightness(200%);
+}
+ html.dark #offcanvasMobileMenu .mobile-nav-menu .menu-item {
+     border-color: rgba(255, 255, 255, 0.1);
+}
+/*-------------------------------------------------------------- Style untuk Judul Section Responsif ==============================================================*/
+ .section-title-header .section-title {
+     font-weight: 700;
+     font-size: 1.5rem;
+     text-transform: uppercase;
+}
+ .section-title-header .section-title span {
+     display: inline-block;
+     padding-bottom: 0.5rem;
+     border-bottom: 3px solid #0d6efd;
+}
+ .see-all-link {
+     font-size: 0.9rem;
+     font-weight: 500;
+     text-decoration: none;
+     flex-shrink: 0;
+    /* Mencegah link menyusut */
+}
+/* Postingan Utama (Kiri) */
+ .featured-card-split {
+     background-color: #fff;
+     border: 1px solid #e9ecef;
+     border-radius: 12px;
+     overflow: hidden;
+     display: flex;
+     flex-direction: column;
+}
+ .featured-thumbnail-split img {
+     width: 100%;
+     height: auto;
+     aspect-ratio: 16 / 10;
+     object-fit: cover;
+}
+ .featured-content-split {
+     padding: 1.5rem;
+     flex-grow: 1;
+     display: flex;
+     flex-direction: column;
+}
+ .featured-title-split {
+     font-size: 1.75rem;
+     font-weight: 700;
+}
+ .featured-title-split a {
+     color: #212529;
+     text-decoration: none;
+}
+ .featured-excerpt-split {
+     font-size: 1rem;
+     color: #6c757d;
+     margin-top: 1rem;
+     flex-grow: 1;
+}
+ .featured-card-split .post-card-footer {
+     padding-top: 1.5rem;
+     border-top: 1px solid #e9ecef;
+     margin-top: 1.5rem;
+}
+
+/*--------------------------------------------------------------
+   Style untuk Grid Postingan Kecil (Kanan)
+   ==============================================================*/
+.side-grid-card {
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-grid-thumbnail img {
+    width: 100%;
+    height: 200px; /* Memberi tinggi tetap pada gambar */
+    object-fit: cover; /* Memastikan gambar tidak gepeng */
+}
+
+.side-grid-content {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-grid-title {
+    font-size: 1.25rem; /* PERBAIKAN: Ukuran font sesuai permintaan */
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+.side-grid-title a {
+    color: #212529;
+    text-decoration: none;
+}
+
+/* PERBAIKAN: Menghapus mt-auto agar konten rata atas */
+.side-grid-card .post-card-footer {
+    margin-top: 1rem; /* Memberi jarak dari judul */
+}
+
+/* Dark Mode */
+html.dark .side-grid-card {
+    background-color: var(--bs-secondary-bg);
+    border-color: var(--bs-border-color);
+}
+html.dark .side-grid-title a {
+    color: var(--bs-heading-color);
+}
+
+
+/* Meta Info Universal */
+ .author-box .author-avatar img {
+     width: 40px;
+     height: 40px;
+}
+ .side-grid-card .author-avatar img {
+     width: 40px;
+     height: 40px;
+}
+ .author-box .author-name {
+     font-weight: 600;
+}
+ .author-box .post-date {
+     color: #6c757d;
+}
+/* Dark Mode */
+ html.dark .featured-card-split, html.dark .side-grid-card {
+     background-color: var(--bs-secondary-bg);
+     border-color: var(--bs-border-color);
+}
+ html.dark .featured-title-split a, html.dark .side-grid-title a, html.dark .author-name {
+     color: var(--bs-heading-color);
+}
+ html.dark .featured-excerpt-split, html.dark .post-date {
+     color: var(--bs-body-color);
+}
+ html.dark .featured-card-split .post-card-footer {
+     border-top-color: var(--bs-border-color);
+}
+ html, body {
+     height: 100%;
+    /* Wajib untuk sticky footer */
+}
+ body {
+     display: flex;
+     flex-direction: column;
+}
+ main#content, main.site-main, main#main-content {
+     flex-grow: 1;
+}
+ .site-header .header-main-row {
+     min-height: 70px;
+}
+/*-------------------------------------------------------------- Style untuk Footer (Versi Full-width Border) ==============================================================*/
+ .site-footer-wrapper {
+     border-top: 1px solid #dee2e6;
+    /* Border ini akan full-width */
+     padding-top: 2.5rem;
+     padding-bottom: 2.5rem;
+}
+ .site-footer-inner {
+     font-size: 0.9rem;
+     color: #2c2c2c;
+     font-weight: 600;
+}
+ .site-footer-inner a {
+     color: #212529;
+     text-decoration: underline;
+     text-decoration-color: rgba(0, 0, 0, 0.2);
+}
+ .site-footer-inner a:hover {
+     color: #0d6efd;
+     text-decoration-color: #0d6efd;
+}
+/* --- Dark Mode untuk Footer --- */
+ html.dark .site-footer-wrapper {
+     background-color: var(--bs-secondary-bg);
+     border-top-color: var(--bs-border-color) !important;
+}
+ html.dark .site-footer-inner {
+     color: var(--bs-body-color);
+}
+ html.dark .site-footer-inner a {
+     color: #ffffff;
+     text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+ html.dark .site-footer-inner a:hover {
+     text-decoration-color: #ffffff;
+}
+/*-------------------------------------------------------------- Style untuk Halaman 404 (Not Found) ==============================================================*/
+ .not-found-container {
+     max-width: 600px;
+    /* Batasi lebar konten agar tidak terlalu lebar di desktop */
+     margin-left: auto;
+     margin-right: auto;
+}
+ .not-found-image img {
+     max-width: 100%;
+     height: auto;
+     max-height: 250px;
+    /* Batasi tinggi gambar agar tidak terlalu besar */
+}
+ .not-found-title {
+     font-size: 2.5rem;
+     font-weight: 700;
+     margin-bottom: 0.5rem;
+}
+ .not-found-subtitle {
+     font-size: 1.1rem;
+}
+ .btn-lg {
+     padding: 0.75rem 1.5rem;
+     font-size: 1.1rem;
+}
+/* Dark Mode */
+ html.dark .not-found-subtitle {
+     color: var(--bs-body-color) !important;
+}
+/* Responsif */
+ @media (max-width: 991.98px) {
+     .side-posts-grid {
+         margin-top: 2rem;
+    }
+}
+/* Style untuk Layout Grid */
+ .grid-post-card {
+     border: 1px solid #e9ecef;
+     border-radius: 8px;
+}
+ .grid-post-card img {
+     border-radius: 8px 8px 0 0;
+}
+ .grid-post-content {
+     padding: 1rem;
+}
+ .grid-post-title {
+     font-size: 1.1rem;
+}
+/* Style untuk Layout Daftar */
+ .list-post-card {
+     border-radius: 8px;
+}
+ .list-post-thumbnail {
+     display: block;
+     height: 100%;
+}
+ .list-post-thumbnail img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+}
+ .list-post-title {
+     font-size: 1.2rem;
+}
+/*-------------------------------------------------------------- Style untuk Layout Grid 2x2 (Gambar Kiri) ==============================================================*/
+ .grid-card-horizontal {
+     background-color: #fff;
+     border: 1px solid #e9ecef;
+     border-radius: 8px;
+     overflow: hidden;
+     transition: box-shadow 0.3s ease;
+}
+ .grid-card-horizontal:hover {
+     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+/* Gambar di Kiri */
+ .grid-card-thumbnail {
+     display: block;
+     height: 100%;
+}
+ .grid-card-thumbnail img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+}
+/* Konten Teks di Kanan */
+ .grid-card-content {
+     padding: 1rem;
+     display: flex;
+     flex-direction: column;
+     height: 100%;
+    /* Memastikan konten mengisi tinggi kartu */
+}
+ .grid-card-title {
+     font-size: 1.1rem;
+     font-weight: 600;
+     line-height: 1.4;
+     margin: 0;
+}
+ .grid-card-title a {
+     color: #212529;
+     text-decoration: none;
+}
+ .grid-card-excerpt {
+     font-size: 0.9rem;
+     color: #6c757d;
+     margin-top: 0.5rem;
+     margin-bottom: 0.5rem;
+     flex-grow: 1;
+    /* Mendorong footer ke bawah */
+}
+ .grid-card-footer .post-date {
+     color: #6c757d;
+}
+/* === PERBAIKAN UTAMA ADA DI SINI === */
+/* Mengatur tinggi kartu melalui gambar di dalamnya */
+ .grid-card-horizontal .grid-card-thumbnail {
+     height: 250px;
+    /* NAIKKAN NILAI INI untuk membuat kartu lebih tinggi, misal: 150px */
+     object-fit: cover;
+}
+/* Dark Mode */
+ html.dark .grid-card-horizontal {
+     background-color: var(--bs-secondary-bg);
+     border-color: var(--bs-border-color);
+}
+ html.dark .grid-card-title a {
+     color: var(--bs-heading-color);
+}
+ html.dark .grid-card-excerpt, html.dark .grid-card-footer .post-date {
+     color: var(--bs-body-color);
+}
+ .posts-pagination-wrap .pagination {
+     justify-content: center;
+}
+ .posts-pagination-wrap .page-numbers {
+     padding: 0.5rem 1rem;
+     margin: 0 0.25rem;
+     border: 1px solid #dee2e6;
+     border-radius: 0.375rem;
+     color: #1a1a1a;
+     text-decoration: none;
+}
+ .posts-pagination-wrap .page-numbers:hover {
+     background-color: #e9ecef;
+}
+ .posts-pagination-wrap .page-numbers.current {
+     background-color: #181818;
+     color: #fff;
+     border-color: #2b2b2b;
+}
+ .posts-pagination-wrap .page-numbers.prev, .posts-pagination-wrap .page-numbers.next {
+     display: inline-flex;
+     align-items: center;
+     gap: 0.5rem;
+}
+/* ... (style dark mode untuk pagination) ... */
+ html.dark .posts-pagination-wrap .page-numbers {
+     padding: 0.5rem 1rem;
+     margin: 0 0.25rem;
+     border: 1px solid #dee2e6;
+     border-radius: 0.375rem;
+     color: #ffffff;
+     text-decoration: none;
+}
+ html.dark .posts-pagination-wrap .page-numbers:hover {
+     background-color: #484646;
+}
+ html.dark .posts-pagination-wrap .page-numbers.current {
+     background-color: #0e0d0d;
+     color: #fff;
+     border-color: #ffffff;
+}
+/*-------------------------------------------------------------- Style untuk Halaman Single Post Profesional ==============================================================*/
+/* Breadcrumbs */
+ .entry-breadcrumbs {
+     font-size: 0.9rem;
+     color: #6c757d;
+}
+ .entry-breadcrumbs a {
+     text-decoration: none;
+     color: #6c757d;
+}
+ .entry-breadcrumbs .bi {
+     font-size: 0.7rem;
+}
+/* Header Postingan */
+ .entry-header .entry-title {
+     font-size: 2.5rem;
+     font-weight: 700;
+     line-height: 1.3;
+}
+ .entry-header .entry-meta {
+     color: #6c757d;
+}
+ .entry-header .entry-meta span:not(:last-child)::after {
+     content: '•';
+     margin: 0 0.5rem;
+}
+/* Konten */
+ .post-thumbnail-single img {
+     border-radius: 12px;
+}
+ .entry-content {
+     line-height: 1.8;
+     font-size: 1.1rem;
+}
+ .entry-content h2, .entry-content h3 {
+     margin-top: 2.5rem;
+     margin-bottom: 1.25rem;
+     font-weight: 700;
+}
+/* Artikel Terkait di Tengah Konten */
+ .in-content-related-posts {
+     background-color: #f8f9fa;
+     border-radius: 8px;
+}
+ .in-content-related-posts .related-title {
+     font-weight: 700;
+}
+ .in-content-related-posts .related-post-item img {
+     border-radius: 6px;
+     aspect-ratio: 1/1;
+     object-fit: cover;
+}
+ .in-content-related-posts .related-post-title {
+     font-size: 0.9rem;
+     font-weight: 600;
+     line-height: 1.4;
+}
+ .in-content-related-posts .related-post-title a {
+     color: inherit;
+     text-decoration: none;
+}
+ .in-content-related-posts .related-post-date {
+     font-size: 0.75rem;
+}
+/* Tag di Bawah */
+ .entry-footer .tags-links a {
+     display: inline-block;
+     margin: 0.25rem;
+     padding: 0.35rem 0.85rem;
+     background-color: #e9ecef;
+     border-radius: 20px;
+     font-size: 0.85rem;
+     text-decoration: none;
+     color: #212529;
+}
+/* Dark Mode */
+ html.dark .top-author-box, html.dark .table-of-contents-wrap, html.dark .in-content-related-posts, html.dark .entry-footer .tags-links a {
+     background-color: var(--bs-secondary-bg);
+}
+ html.dark .entry-title, html.dark .entry-content {
+     color: var(--bs-heading-color);
+}
+ html.dark .entry-meta, html.dark .entry-breadcrumbs, html.dark .entry-breadcrumbs a {
+     color: var(--bs-body-color);
+}
+/*-------------------------------------------------------------- Style untuk Single Post Layout 3 Kolom ==============================================================*/
+ .sidebar-single-left {
+     top: 120px;
+    /* Jarak dari atas saat sidebar 'mengambang' */
+}
+ .share-box-vertical {
+     display: flex;
+     flex-direction: column;
+    /* Menyusun ikon ke bawah */
+     align-items: center;
+     gap: 1rem;
+    /* Jarak antar ikon */
+}
+ .share-box-vertical .share-title {
+     font-size: 0.8rem;
+     font-weight: 500;
+     color: #6c757d;
+     text-transform: capitalize;
+     margin-bottom: 1rem;
+}
+ .share-box-vertical a {
+     font-size: 1.1rem;
+     color: #6c757d;
+     transition: color 0.2s ease;
+}
+ .share-box-vertical a:hover {
+     color: #0d6efd;
+}
+/* Dark Mode untuk Share Box */
+ html.dark .share-box-vertical .share-title, html.dark .share-box-vertical a {
+     color: var(--bs-body-color);
+}
+ html.dark .share-box-vertical a:hover {
+     color: #ffffff;
+}
+/*-------------------------------------------------------------- Style untuk Section Profil Penulis di Atas ==============================================================*/
+/* Box Penulis di Atas */
+ .top-author-box {
+     padding: 1rem;
+     background-color: #f8f9fa;
+     border-radius: 12px;
+}
+ .author-avatar-top img {
+     width: 50px;
+    /* Ukuran avatar */
+     height: 50px;
+}
+ .author-name-top {
+     font-weight: 700;
+}
+ .author-description-top {
+     font-size: 0.9rem;
+}
+/* Dark Mode */
+ html.dark .top-author-box {
+     border-color: var(--bs-border-color) !important;
+}
+ html.dark .author-name-top {
+     color: var(--bs-heading-color);
+}
+ html.dark .author-description-top {
+     color: var(--bs-body-color) !important;
+}
+/* Aturan ini hanya berlaku untuk layar dengan lebar maksimal 991.98px (di bawah ukuran desktop) */
+ @media (max-width: 991.98px) {
+     .logo {
+        /* Perkecil tinggi maksimal logo di tampilan mobile */
+         max-height: 45px;
+    }
+    /* Jika Anda menggunakan judul situs berupa teks, ini akan memperkecilnya juga */
+     .site-title {
+         font-size: 1.75rem;
+    }
+     .py-5 {
+         padding-top: 1rem !important;
+         padding-bottom: 1rem !important;
+    }
+    /* Anda bisa menambahkan penyesuaian lain untuk mobile di sini jika perlu */
+}
+/*-------------------------------------------------------------- Style untuk Fitur Tambahan Single Post ==============================================================*/
+/* Reading Progress Bar */
+#reading-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 0%; /* Dimulai dari 0% */
+    background-color: #0d6efd; /* Warna default */
+    z-index: 9999;
+    transition: width 0.1s linear;
+}
+/* Daftar Isi (Table of Contents) */
+ .table-of-contents-wrap {
+     background-color: #f8f9fa;
+     border-left: 4px solid #0d6efd;
+}
+ .table-of-contents-wrap .toc-title {
+     font-weight: 700;
+}
+ .table-of-contents-wrap .toc-list {
+     padding-left: 1.25rem;
+}
+ .table-of-contents-wrap .toc-list li::marker {
+     font-weight: 700;
+}
+ .table-of-contents-wrap .toc-list a {
+     text-decoration: none;
+     color: #000000 !important;
+}
+/* Artikel Terkait di Tengah Konten */
+ .in-content-related-posts {
+     background-color: #f8f9fa;
+     border-radius: 8px;
+}
+ .in-content-related-posts .related-title {
+     font-weight: 700;
+}
+ .in-content-related-posts .related-post-item img {
+     border-radius: 6px;
+     aspect-ratio: 16/9;
+     object-fit: cover;
+}
+ .in-content-related-posts .related-post-title {
+     font-size: 0.95rem;
+     font-weight: 600;
+     line-height: 1.4;
+}
+ .in-content-related-posts .related-post-title a {
+     color: inherit;
+     text-decoration: none;
+}
+ .in-content-related-posts .related-post-date {
+     font-size: 0.75rem;
+}
+/* Dark Mode */
+ html.dark .table-of-contents-wrap, html.dark .in-content-related-posts {
+     background-color: var(--bs-secondary-bg);
+}
+/*-------------------------------------------------------------- Style untuk Artikel Terkait di Tengah Konten ==============================================================*/
+ .in-content-related-posts {
+     background-color: #f8f9fa;
+     border-left: 4px solid #0d6efd;
+}
+ .in-content-related-posts .related-title {
+     font-weight: 700;
+}
+ .related-post-thumbnail img {
+     border-radius: 6px;
+     width: 100%;
+     aspect-ratio: 16 / 9;
+    /* Membuat gambar menjadi kotak */
+     object-fit: cover;
+     height: 100px;
+    /* Tinggi tetap untuk gambar */
+}
+ .related-post-title-grid {
+     font-size: 0.9rem;
+     font-weight: 600;
+     line-height: 1.4;
+     margin-bottom: 0.3rem;
+}
+ .related-post-date-grid {
+     font-size: 0.8rem !important;
+    /* Memaksa ukuran font tanggal menjadi lebih kecil */
+}
+ .related-post-title-grid a {
+     color: #212529;
+     text-decoration: none;
+}
+ .related-post-title-grid a:hover {
+     text-decoration: underline;
+}
+/* Dark Mode */
+ html.dark .in-content-related-posts {
+     background-color: var(--bs-secondary-bg);
+     border-color: #0d6efd;
+}
+ html.dark .related-post-title-grid a {
+     color: var(--bs-heading-color);
+}
+ html.dark .related-post-date-grid.text-muted {
+     color: var(--bs-body-color) !important;
+    /* Memaksa warna teks menjadi terang */
+}
+/*-------------------------------------------------------------- 10.0 Style untuk Kolom Komentar ==============================================================*/
+/* Pembungkus Utama Area Komentar */
+ .comments-area {
+     margin-top: 3rem;
+     padding-top: 3rem;
+     border-top: 1px solid #e9ecef;
+}
+ .comments-title, .comment-reply-title {
+     font-size: 1.75rem;
+     font-weight: 700;
+     margin-bottom: 2rem;
+}
+/* Daftar Komentar */
+ .comment-list {
+     list-style: none;
+     padding: 0;
+}
+/* Setiap Kartu Komentar */
+ .comment-list .comment, .comment-list .pingback {
+     padding: 1.5rem;
+     background-color: #fff;
+     border: 1px solid #e9ecef;
+     border-radius: 12px;
+     margin-bottom: 1.5rem;
+     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+/* Komentar Balasan (Nested) */
+ .comment-list .children {
+     list-style: none;
+     padding-left: 1.5rem;
+     margin-top: 1.5rem;
+     border-left: 3px solid #0d6efd;
+}
+/* Layout Avatar dan Konten */
+ .comment-body {
+     display: flex;
+     gap: 1rem;
+}
+ .comment-author .avatar {
+     border-radius: 50%;
+}
+ .comment-content-wrap {
+     flex-grow: 1;
+}
+/* Meta Info: Nama, Tanggal, Link Balas */
+ .comment-author .fn {
+     font-weight: 700;
+     font-size: 1rem;
+}
+ .comment-author .fn a {
+     color: #212529;
+     text-decoration: none;
+}
+ .comment-metadata a {
+     font-size: 0.8rem;
+     color: #6c757d;
+     text-decoration: none;
+}
+ .comment-metadata a:hover {
+     text-decoration: underline;
+}
+ .reply a {
+     font-size: 0.85rem;
+     font-weight: 600;
+}
+/* Teks Komentar */
+ .comment-content p:last-child {
+     margin-bottom: 0;
+}
+/* Form Komentar */
+ .comment-respond {
+     margin-top: 3rem;
+     padding: 2rem;
+     background-color: #f8f9fa;
+     border-radius: 12px;
+}
+ .comment-form p {
+     margin-bottom: 1rem;
+}
+ .comment-form .form-submit .submit {
+     background-color: #0d6efd;
+     color: #fff;
+     border: none;
+     padding: 0.6rem 1.5rem;
+     border-radius: 6px;
+     font-weight: 500;
+     cursor: pointer;
+     transition: opacity 0.2s ease;
+}
+ .comment-form .form-submit .submit:hover {
+     opacity: 0.9;
+}
+/* --- Dark Mode untuk Komentar --- */
+ html.dark .comments-area {
+     border-top-color: var(--bs-border-color);
+}
+ html.dark .comment-list .comment, html.dark .comment-respond {
+     background-color: var(--bs-secondary-bg);
+     border-color: var(--bs-border-color);
+}
+ html.dark .comment-list .children {
+     border-left-color: #0d6efd;
+}
+ html.dark .comment-author .fn a {
+     color: var(--bs-heading-color);
+}
+ html.dark .comment-metadata a {
+     color: var(--bs-body-color);
+     opacity: 0.7;
+}
+ html.dark .comment-form input[type="text"], html.dark .comment-form input[type="email"], html.dark .comment-form input[type="url"], html.dark .comment-form textarea {
+     background-color: var(--bs-tertiary-bg);
+     border-color: var(--bs-border-color);
+     color: var(--bs-body-color);
+}
+/*-------------------------------------------------------------- Memastikan Footer Tetap di Bawah (Sticky Footer) ==============================================================*/
+ body {
+     display: flex;
+     flex-direction: column;
+     min-height: 100vh;
+}
+ .site-content-wrapper {
+     flex-grow: 1;
+}
+/*-------------------------------------------------------------- Style untuk Halaman Hasil Pencarian ==============================================================*/
+ .no-results-found p{
+     font-size: medium;
+}
+html.dark .text-muted {
+    color: var(--bs-body-color) !important;
+}
+
+ .search-header .search-title span {
+     color: #0d6efd;
+     font-style: italic;
+}
+/* Dark Mode */
+ html.dark .search-header .search-title span {
+     color: #69a042;
+}
+ .search-header {
+     border-bottom: 1px solid #dee2e6;
+    /* Garis bawah tipis untuk seluruh header */
+     display: flex;
+    /* Mengaktifkan flexbox untuk kontrol alignment */
+     align-items: baseline;
+    /* Menyejajarkan elemen berdasarkan garis dasar teks */
+}
+ .search-header .search-title {
+     font-size: 1.5rem;
+     font-weight: 700;
+     margin: 0;
+}
+/* PERBAIKAN UTAMA DI SINI */
+ .search-header .search-title span {
+     display: inline-block;
+    /* Diperlukan agar border-bottom bisa diterapkan */
+     color: #3215c3;
+    /* Memberi warna pada kata kunci yang dicari */
+     border-bottom: 1px solid #000000;
+    /* Garis bawah hitam tebal */
+     padding-bottom: 0.5rem;
+}
+/* Dark Mode */
+ html.dark .search-header {
+     border-bottom-color: var(--bs-border-color);
+}
+ html.dark .search-header .search-title span {
+     color: #69a042;
+    /* Contoh warna hijau di mode gelap */
+     border-bottom-color: #ffffff;
+    /* Garis bawah menjadi putih */
+}
+/* Sembunyikan kursor kustom di perangkat mobile & tablet */
+ .custom-cursor-inner, .custom-cursor-outer {
+     display: none;
+}
+
+
+
+/*
+ * Lock Screen Style
+ * ----------------------------------------------------------------------------
+ */
+
+/* Menerapkan style hanya pada body dengan class .locked-theme */
+body.locked-theme {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    font-family: "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box; /* Menambahkan ini untuk perhitungan yang lebih baik */
+}
+
+/* Perbaikan untuk Admin Bar WordPress */
+body.admin-bar.locked-theme {
+    min-height: calc(100vh - 32px);
+}
+
+.lock-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.lock-box {
+    background: #ffffff;
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.lock-box h1 {
+    font-size: 26px;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.lock-box p {
+    font-size: 16px;
+    color: #475569;
+    margin-bottom: 2rem;
+}
+
+.lock-box a {
+    display: inline-block;
+    background-color: #2563eb;
+    color: #fff;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.lock-box a:hover {
+    background-color: #1d4ed8;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.in-content-ad-wrapper {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Tampilkan kursor kustom hanya di desktop */
+ @media (min-width: 992px) {
+     .custom-cursor-inner, .custom-cursor-outer {
+         display: block;
+         position: fixed;
+         top: 0;
+         left: 0;
+         pointer-events: none;
+         z-index: 99999;
+         border-radius: 50%;
+    }
+}
+ .custom-cursor-inner {
+     width: 8px;
+     height: 8px;
+     margin-left: -4px;
+     margin-top: -4px;
+     background-color: #333;
+     transition: transform 0.1s ease-out;
+}
+ .custom-cursor-outer {
+     width: 40px;
+     height: 40px;
+     margin-left: -20px;
+     margin-top: -20px;
+     border: 2px solid #333;
+     transition: all 0.2s ease-out;
+}
+/* Efek saat hover ke link/judul */
+ .custom-cursor-outer.hover-effect {
+     transform: scale(1.5);
+     opacity: 0.5;
+}
+/*-------------------------------------------------------------- Style untuk Kursor Animasi (Final - Inverted Khusus Judul) ==============================================================*/
+/* Sembunyikan kursor asli jika fitur aktif */
+ body.custom-cursor-active {
+     cursor: none !important;
+}
+/* Sembunyikan kursor kustom di perangkat mobile */
+ @media (max-width: 991.98px) {
+     .custom-cursor-inner, .custom-cursor-outer {
+         display: none !important;
+    }
+     body.custom-cursor-active {
+         cursor: auto !important;
+    }
+}
+ .custom-cursor-inner, .custom-cursor-outer {
+     position: fixed;
+     top: 0;
+     left: 0;
+     pointer-events: none;
+     z-index: 99999;
+     border-radius: 50%;
+     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+ .custom-cursor-inner {
+     width: 8px;
+     height: 8px;
+     margin-left: -4px;
+     margin-top: -4px;
+     background-color: #fff;
+    /* Warna dasar: putih */
+}
+ .custom-cursor-outer {
+     width: 40px;
+     height: 40px;
+     margin-left: -20px;
+     margin-top: -20px;
+     background-color: #fff;
+    /* Warna dasar: putih */
+     opacity: 0.5;
+    /* Dibuat sedikit transparan */
+}
+/* KUNCI EFEK INVERTED: mix-blend-mode */
+ .custom-cursor-inner, .custom-cursor-outer {
+     mix-blend-mode: difference;
+    /* Membalik warna elemen di belakangnya */
+}
+/* EFEK HOVER BIASA (untuk link & tombol) */
+ .custom-cursor-outer.hover-effect {
+     transform: scale(1.5);
+}
+/* EFEK "KETIK" (khusus untuk judul dan teks) */
+ .custom-cursor-outer.text-hover-effect {
+     transform: scale(0);
+    /* Sembunyikan lingkaran luar */
+     opacity: 0;
+}
+ .custom-cursor-inner.text-hover-effect {
+    /* Ubah titik menjadi garis vertikal (I-beam) */
+     width: 2px;
+     height: 24px;
+     border-radius: 2px;
+     margin-left: -1px;
+     margin-top: -12px;
+     background-color: #fff;
+    /* Warna dasar I-beam tetap putih */
+}
+/* Penting: Tampilkan kursor teks asli sebagai fallback */
+ h1, h2, h3, h4, h5, h6, p {
+     cursor: text;
+}
+/* EFEK INVERTED (khusus untuk judul) */
+ .custom-cursor-outer.inverted {
+     transform: scale(2.5);
+    /* Lebih besar dari hover biasa */
+     opacity: 1;
+    /* Solid */
+}
+ .custom-cursor-inner.inverted {
+     transform: scale(0);
+    /* Sembunyikan titik tengah saat inverted */
+}
+/* Menargetkan setiap item (<li>) di dalam daftar isi */
+ .table-of-contents-wrap .toc-list li {
+     margin-bottom: 0.75rem;
+    /* Memberi jarak di bawah setiap baris */
+}
+/* Menghilangkan jarak pada item terakhir agar rapi */
+ .table-of-contents-wrap .toc-list li:last-child {
+     margin-bottom: 0;
+}
+ html.dark .table-of-contents-wrap .toc-list a {
+     text-decoration: none;
+     color: #ffffff !important;
+}
+/* Style untuk Kategori di Footer Single Post */
+ .category-links-footer a {
+     display: inline-block;
+     margin: 0.25rem;
+     padding: 0.35rem 0.85rem;
+     background-color: #e9ecef;
+     border-radius: 10px;
+     font-size: 0.85rem;
+     text-decoration: none;
+     color: #7d7d7d;
+     transition: background-color 0.2s ease;
+}
+ .category-links-footer a:hover {
+     background-color: #dee2e6;
+}
+/* Dark Mode */
+ html.dark .category-links-footer a {
+     background-color: var(--bs-secondary-bg);
+     color: var(--bs-body-color);
+}
+ html.dark .category-links-footer a:hover {
+     background-color: var(--bs-tertiary-bg);
+}
+/*-------------------------------------------------------------- Perbaikan Tampilan Form Komentar ==============================================================*/
+/* Menata ulang kolom input (Nama, Email, Website) */
+ .comment-form-author, .comment-form-email, .comment-form-url {
+     flex-grow: 1;
+    /* Biarkan bisa membesar jika ada ruang */
+     flex-basis: 30%;
+    /* Beri lebar dasar sekitar 30% */
+     margin-bottom: 1rem;
+}
+/* 3. Paksa elemen lain untuk mengambil satu baris penuh */
+ .comment-form-comment, .comment-form-cookies-consent, .form-submit, .comment-notes, .logged-in-as {
+     flex-basis: 100%;
+}
+ .comment-form {
+     display: flex;
+     flex-wrap: wrap;
+    /* Izinkan item turun baris jika perlu */
+     justify-content: space-between;
+    /* Memberi jarak antar kolom */
+     gap: 1rem;
+}
+/* 4. Style untuk input field agar rapi */
+ .comment-form input[type="text"], .comment-form input[type="email"], .comment-form input[type="url"], .comment-form textarea {
+     width: 100%;
+     padding: 0.75rem 1rem;
+     border: 1px solid #dee2e6;
+     border-radius: 6px;
+}
+ .comment-form textarea {
+     margin-top: 1rem;
+    /* Beri jarak antara textarea dan kolom di atasnya */
+}
+ .comment-form-cookies-consent input[type="checkbox"] {
+     margin-right: 8px;
+    /* Memberi jarak di sebelah kanan checkbox */
+     vertical-align: middle;
+    /* Memastikan checkbox sejajar dengan teks */
+}
+/* --- Dark Mode untuk Form --- */
+ html.dark .comments-area {
+     border-top-color: var(--bs-border-color);
+}
+ html.dark .comment-form input[type="text"], html.dark .comment-form input[type="email"], html.dark .comment-form input[type="url"], html.dark .comment-form textarea {
+     background-color: var(--bs-tertiary-bg);
+     border-color: var(--bs-border-color);
+     color: var(--bs-body-color);
+}
+/*-------------------------------------------------------------- Style untuk Tombol Lompat ke Komentar ==============================================================*/
+ .comment-jump-box {
+     margin-top: 2rem;
+    /* Jarak dari ikon share di atasnya */
+     text-align: center;
+}
+ .comment-jump-label {
+     font-size: 0.8rem;
+     font-weight: 500;
+     color: #878787;
+     text-transform:capitalize;
+     display: block;
+     margin-bottom: 0.5rem;
+}
+ .comment-jump-link {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     text-decoration: none;
+     color: #6c757d;
+     transition: color 0.2s ease;
+}
+ .comment-jump-link:hover {
+     color: #0d6efd;
+}
+ .comment-jump-link .fa-comment {
+     font-size: 1.25rem;
+}
+ .comment-jump-link .comment-jump-count {
+     font-size: 1rem;
+     font-weight: 700;
+}
+/* Dark Mode */
+ html.dark .comment-jump-label, html.dark .comment-jump-link {
+     color: var(--bs-body-color);
+}
+/*-------------------------------------------------------------- Style untuk Tombol Scroll to Top (Versi Final & Andal) ==============================================================*/
+ .scroll-to-top-button {
+     position: fixed;
+     bottom: 25px;
+     right: 25px;
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+    /* PERBAIKAN UTAMA: Menggunakan Flexbox untuk centering sempurna */
+     display: flex;
+     align-items: center !important;
+    /* Rata tengah vertikal */
+     justify-content: center !important;
+    /* Rata tengah horizontal */
+     font-size:2rem;
+     text-align: center;
+    /* Tambahan untuk memastikan perataan */
+    /* Menghapus spasi ekstra dari line-height */
+     text-decoration: none;
+     z-index: 999;
+     transition: opacity 0.3s ease-in-out, background-color 0.3s ease;
+     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    /* Awalnya disembunyikan oleh JS */
+     opacity: 0;
+}
+/* Aturan tambahan untuk ikon di dalamnya agar lebih stabil */
+ .scroll-to-top-button i {
+     display: block;
+     margin: 0;
+     padding: 0;
+}
+ .scroll-to-top-button:hover {
+     opacity: 0.8 !important;
+}
+/* Dark Mode untuk Tombol (Jika diperlukan) */
+ html.dark .scroll-to-top-button {
+     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+/*-------------------------------------------------------------- Style untuk Halaman Statis (Page) ==============================================================*/
+ .page-header-container {
+     border-bottom: 1px solid #dee2e6;
+}
+ .page-title {
+     font-size: 2.5rem;
+     font-weight: 700;
+}
+/* Style untuk breadcrumbs bisa Anda sesuaikan di sini jika perlu */
+ .page-header-container .breadcrumbs {
+     justify-content: center;
+     padding-bottom: 0;
+}
+/* Dark Mode */
+ html.dark .page-header-container {
+     background-color: var(--bs-secondary-bg) !important;
+     border-bottom-color: var(--bs-border-color);
+ }
+
+/* Mengubah warna ikon panah menjadi putih di mode gelap */
+
+
+/* Mengubah warna ikon panah menjadi putih */
+html.dark .carousel-control-prev-icon,
+html.dark .carousel-control-next-icon {
+    filter: invert(1) grayscale(100);
+}
+
+/* Memberi latar belakang hitam pada area tombol */
+html.dark .carousel-control-prev,
+html.dark .carousel-control-next {
+    background-color: rgba(0, 0, 0, 0.5); /* Latar hitam semi-transparan */
+    width: 5%; /* Sesuaikan lebar area tombol jika perlu */
+}
+
+/* Menghilangkan latar saat tidak di-hover (opsional, untuk tampilan lebih halus) */
+html.dark .carousel-control-prev {
+    background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);
+}
+html.dark .carousel-control-next {
+    background: linear-gradient(to left, rgba(0,0,0,0.5), transparent);
+}
+
+
+/*-------------------------------------------------------------- 6.0 Style Responsif (Media Queries) ==============================================================*/
+ @media (max-width: 767.98px) {
+    /* Perkecil logo di mobile */
+     .header-logo .site-title, .header-logo .logo {
+         max-height: 45px;
+         font-size: 1.5rem;
+    }
+    /* === PERBAIKAN UNTUK TICKER RESPONSIVE === */
+     .typewriter-wrap, .typewriter-wrap a {
+         display: block;
+        /* Diperlukan agar text-overflow bekerja */
+         white-space: nowrap;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         font-size:12px;
+    }
+     .mediman-carousel-wrap {
+         margin-left: -1rem;
+        /* Menghilangkan sisa padding dari kontainer utama */
+         margin-right: -1rem;
+        /* Menghilangkan sisa padding dari kontainer utama */
+         border-radius: 10px ;
+        /* Hapus radius di mobile agar terlihat full-width */
+    }
+     .carousel-item {
+         height: 350px;
+        /* Perkecil tinggi slider di mobile */
+    }
+     .carousel-caption {
+         padding: 1rem;
+        /* Kurangi padding di mobile */
+    }
+     .caption-content-box {
+         padding: 1rem;
+        /* Kurangi padding di dalam kotak teks */
+    }
+     .caption-title a {
+         font-size: 1rem;
+        /* Perkecil ukuran font judul */
+    }
+    /* Perkecil area klik tombol navigasi slider */
+     .carousel-control-prev, .carousel-control-next {
+         width: 10%;
+        /* Mengurangi lebar area tombol agar tidak terlalu sensitif */
+    }
+    /* Perkecil ukuran visual ikon panah di dalam tombol */
+     .carousel-control-prev-icon, .carousel-control-next-icon {
+         width: 1.5rem;
+        /* Ukuran default adalah 2rem */
+         height: 1.5rem;
+        /* Ukuran default adalah 2rem */
+    }
+    
+    /* Perkecil tombol kategori di dalam slider */
+     .caption-category {
+         font-size: 0.7rem;
+        /* Perkecil ukuran font teks kategori */
+         padding: 0.3em 0.6em;
+        /* Kurangi padding di dalam tombol */
+         margin-bottom: 0.75rem;
+        /* Kurangi jarak ke judul di bawahnya */
+    }
+     .typewriter-ticker-container {
+         padding: 0.5rem 0;
+         height: 40px;
+    }
+    /* Mengubah layout kartu menjadi vertikal di mobile */
+     .latest-article-card-v2 .row > div {
+         width: 100%;
+        /* Membuat kolom teks & gambar menjadi full-width dan menumpuk */
+    }
+    /* Mengatur ulang tampilan gambar di mobile */
+     .latest-article-card-v2 .card-thumbnail-v2 {
+         height: 150px;
+        /* Beri tinggi tetap pada gambar agar proporsional */
+         border-radius: 8px 8px 0 0;
+        /* Hanya sudut atas yang melengkung */
+    }
+     .latest-article-card-v2 .card-thumbnail-v2 .img-fluid {
+         border-radius: 8px 8px 0 0;
+    }
+    /* Menyesuaikan padding konten teks di mobile */
+     .latest-article-card-v2 .card-body {
+         padding: 1.25rem;
+    }
+    /* Menampilkan kembali excerpt yang mungkin tersembunyi */
+     .card-excerpt-v2 {
+         display: -webkit-box;
+        /* Mengaktifkan mode flexbox khusus untuk line-clamp */
+        -webkit-line-clamp: 2; /* Untuk browser lama */
+    line-clamp: 2;  
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         font-size: 0.9rem;
+    }
+     .section-title-header .section-title {
+         font-weight: 700;
+         font-size: 1rem;
+         text-transform: uppercase;
+    }
+     .featured-title-split a {
+         color: #212529;
+         text-decoration: none;
+         font-size: medium;
+    }
+     .featured-title-split{
+         font-weight: 600;
+         font-size: large;
+    }
+     .grid-card-horizontal .row > div[class*="col-"] {
+         width: 100%;
+         flex-basis: auto;
+    }
+    /* Tinggi gambar di mobile */
+     .grid-card-horizontal .grid-card-thumbnail {
+         height: 180px;
+    }
+     .grid-card-title {
+         padding-top: 0.5rem;
+        /* Tambahkan padding atas pada judul */
+         padding-bottom: 0.5rem;
+        /* Tambahkan padding bawah pada judul */
+    }
+     .comment-form-author, .comment-form-email, .comment-form-url {
+         flex-basis: 100%;
+        /* Lebar menjadi 100% di mobile */
+    }
+     .comment-respond {
+         margin-top: 3rem;
+         padding: 1rem;
+         background-color: #f8f9fa;
+         border-radius: 12px;
+    }
+     .top-author-box {
+         padding: 1rem;
+         background-color: #f8f9fa;
+         border-radius: 12px;
+    }
+     .top-author-box h6{
+         font-size: 14px;
+    }
+     .author-avatar-top img {
+         width: 40px;
+        /* Ukuran avatar */
+         height: 40px;
+    }
+     .author-name-top {
+         font-weight: 700;
+    }
+     .author-description-top {
+         font-size: 14px;
+    }
+     html.dark .author-description-top.text-muted{
+         color: white !important;
+    }
+     html.dark .table-of-contents-wrap .toc-list a {
+         text-decoration: none;
+         color: #ffffff !important;
+    }
+     .entry-header .entry-title {
+         font-size: 1.3rem;
+         font-weight: 700;
+         line-height: 1.3;
+    }
+     .not-found-title {
+         font-size: 2rem;
+    }
+     .search-header .search-title {
+         font-size: 1.2rem;
+         font-weight: 700;
+         margin: 0;
+         padding: 0;
+    }
+
+    .ticker-title-block {
+        padding: 0 1rem; /* Kurangi padding di mobile */
+    }
+    /* Atur ukuran ikon saja di mobile */
+    .ticker-title-block .d-lg-none i {
+        font-size: 1.2rem;
+    }
+    .typewriter-content-block {
+        padding: 0 1rem;
+    }
+    .typewriter-content-block a {
+        font-size: 0.8rem; /* Perkecil font berita di mobile */
+    }
+
+    .ticker-final-wrapper {
+        display: flex;
+        flex-wrap: nowrap; /* Memaksa semua elemen untuk tetap satu baris */
+        height: 40px;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 8px;
+        margin-bottom: 0.2rem;
+        margin-top: 0.2rem;
+    }
+
+    
+
+
+}
+ 
