@@ -1,0 +1,175 @@
+<?php
+/**
+ * File untuk halaman pengaturan optimasi Mediman
+ *
+ * @package Mediman
+ * @since 1.0.0
+ */
+
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
+// Tambahkan menu di admin
+function mediman_add_admin_menu() {
+    add_menu_page(
+        'Mediman Optimization', // Page title
+        'Mediman Opt', // Menu title
+        'manage_options', // Capability
+        'mediman-settings', // Menu slug
+        'mediman_settings_page', // Function to display the page
+        'dashicons-performance', // Icon
+        60 // Position
+    );
+}
+add_action('admin_menu', 'mediman_add_admin_menu');
+
+// Register settings
+function mediman_register_settings() {
+    register_setting('mediman_performance_settings', 'mediman_performance_settings');
+}
+add_action('admin_init', 'mediman_register_settings');
+
+// Halaman pengaturan
+function mediman_settings_page() {
+    // Cek permission
+    if (!current_user_can('manage_options')) {
+        wp_die(__('You do not have sufficient permissions to access this page.'));
+    }
+
+    // Ambil pengaturan yang tersimpan
+    $options = get_option('mediman_performance_settings', array());
+    ?>
+    <div class="wrap">
+        <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+        
+        <?php
+        // Tampilkan pesan sukses jika ada
+        if (isset($_GET['settings-updated'])) {
+            echo '<div class="notice notice-success is-dismissible"><p>Settings updated successfully!</p></div>';
+        }
+        ?>
+
+        <form method="post" action="options.php">
+            <?php
+            settings_fields('mediman_performance_settings');
+            do_settings_sections('mediman_performance_settings');
+            ?>
+            
+            <table class="form-table">
+                <tr>
+                    <th scope="row">JavaScript Optimization</th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[defer_js]" 
+                                <?php checked(isset($options['defer_js'])); ?>>
+                            Defer JavaScript Loading
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Query Strings</th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[remove_query_strings]" 
+                                <?php checked(isset($options['remove_query_strings'])); ?>>
+                            Remove Query Strings from Static Resources
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">WordPress Features</th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[disable_emojis]" 
+                                <?php checked(isset($options['disable_emojis'])); ?>>
+                            Disable Emojis
+                        </label>
+                        <br>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[disable_embeds]" 
+                                <?php checked(isset($options['disable_embeds'])); ?>>
+                            Disable Embeds
+                        </label>
+                        <br>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[disable_xmlrpc]" 
+                                <?php checked(isset($options['disable_xmlrpc'])); ?>>
+                            Disable XML-RPC
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Header Optimization</th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[remove_header_links]" 
+                                <?php checked(isset($options['remove_header_links'])); ?>>
+                            Remove Unnecessary Header Links
+                        </label>
+                        <br>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[dns_prefetch]" 
+                                <?php checked(isset($options['dns_prefetch'])); ?>>
+                            Enable DNS Prefetch
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Image Optimization</th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[lazy_load]" 
+                                <?php checked(isset($options['lazy_load'])); ?>>
+                            Enable Lazy Loading for Images
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">HTML & Cache</th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[compress_html]" 
+                                <?php checked(isset($options['compress_html'])); ?>>
+                            Compress HTML Output
+                        </label>
+                        <br>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[cache_control]" 
+                                <?php checked(isset($options['cache_control'])); ?>>
+                            Add Cache Control Headers
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Database</th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="mediman_performance_settings[optimize_database]" 
+                                <?php checked(isset($options['optimize_database'])); ?>>
+                            Enable Weekly Database Optimization
+                        </label>
+                    </td>
+                </tr>
+            </table>
+
+            <?php submit_button('Save Settings'); ?>
+        </form>
+    </div>
+    <?php
+}
+
+// Tambahkan link settings di halaman plugins
+function mediman_add_settings_link($links) {
+    $settings_link = '<a href="admin.php?page=mediman-settings">' . __('Settings') . '</a>';
+    array_unshift($links, $settings_link);
+    return $links;
+}
+$plugin_file = plugin_basename(__FILE__);
+add_filter("plugin_action_links_$plugin_file", 'mediman_add_settings_link');
